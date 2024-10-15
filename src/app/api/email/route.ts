@@ -21,7 +21,6 @@ export async function POST(request:NextRequest)
             subject: getBodyEmail(body)?.subject,
             text: getBodyEmail(body)?.text,
             html: getBodyEmail(body)?.body, // html body
-
         };
         await transporter.sendMail(mailData);
         return NextResponse.json({"message":"success"},{status:200})

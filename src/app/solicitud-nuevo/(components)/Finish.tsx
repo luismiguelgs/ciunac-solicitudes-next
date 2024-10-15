@@ -8,7 +8,7 @@ import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import SwitchResaltado from '@/components/SwitchResaltado';
 import IStudent from '@/interfaces/student.interface';
-import { MyDialog } from '@/components/mui';
+import { DialogAlert } from '@/components/mui';
 import { useRouter } from 'next/navigation';
 import IProgram from '../(interfaces)/programs.interface';
 
@@ -155,14 +155,14 @@ export default function Finish({handleBack, programs}:Props)
 					</Button>
 				</Box>	
 			</Box>
-            <Alert sx={{mt:2, mb:2}} severity="info">
+            <Alert sx={{mt:2, mb:2}} severity='error' variant='filled'>
                 <Typography variant="subtitle2" gutterBottom style={{ textAlign: 'left', marginLeft:'10px', fontSize:'1.1rem' }}>
                     Si encuentra algún problema, y la información no es correcta, no llega el correo, o no tiene acceso a la cuenta, 
-                    por favor contacte al administrador. <a href="mailto:ciunac.alumnosnuevos@unac.edu.pe" style={{ color: '#1976d2' }}>ciunac.alumnosnuevos@unac.edu.pe</a>
+                    por favor contacte al administrador. <a  href="mailto:ciunac.alumnosnuevos@unac.edu.pe" style={{ color: 'white' }}>ciunac.alumnosnuevos@unac.edu.pe</a>
                 </Typography>
 			</Alert>
             
-                <MyDialog 
+                <DialogAlert 
                     open={open}
                     setOpen={setOpen}
                     title={'Espere, procesando información...'}
@@ -173,13 +173,12 @@ export default function Finish({handleBack, programs}:Props)
                                 {email}
                             </Typography>
                             <img 
-                                src={email ? "/send-email.png" : "/save-student.png"}  // URL de la imagen
+                                src={email === 'Enviando correo...' ? "/send-email.png" : "/save-student.png"}  // URL de la imagen
                                 alt="Cargando" 
                                 style={{ width: '100px', height: '100px', marginTop: '16px' }} 
                             />
                         </Box>
                     }
-                    type='FORM'
                 />
             
         </Box>
@@ -188,6 +187,10 @@ export default function Finish({handleBack, programs}:Props)
 }
 
 async function saveNewStudent(student:IStudent) {
+    student.Primer_apellido = student.Primer_apellido.toLocaleUpperCase();
+    student.Segundo_apellido = student.Segundo_apellido.toLocaleUpperCase();
+    student.Primer_nombre = student.Primer_nombre.toLocaleUpperCase();
+    student.Segundo_nombre = student.Segundo_nombre?.toLocaleUpperCase() || undefined;
     try{
         const response =  await fetch('/api/student', {
             method: 'POST',

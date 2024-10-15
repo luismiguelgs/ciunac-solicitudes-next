@@ -3,7 +3,7 @@ import React from 'react'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-import DialogAlert from "./DialogAlert";
+import DialogAlert from "./dialogs/DialogAlert";
 
 export type MyStep = {
     caption: string,

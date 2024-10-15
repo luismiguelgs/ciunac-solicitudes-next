@@ -10,7 +10,9 @@ async function getPrograms():Promise<IProgram[]> {
             'Api-Key': process.env.API_KEY_Q10 || ''
         }
     })
-    const data = await res.json()
+    let data:IProgram[] = await res.json()
+    
+    data = data.filter((program:IProgram) => program.Numero_resolucion === null)
     return data
 }
 

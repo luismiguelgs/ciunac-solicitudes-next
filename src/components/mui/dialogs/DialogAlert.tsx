@@ -33,7 +33,7 @@ export default function DialogAlert({title,content, open, setOpen, actions=false
             {title}
           </DialogTitle>
           <DialogContent>
-            <DialogContentText id="alert-dialog-description">
+            <DialogContentText id="alert-dialog-description" component={'div'}>
                 {content}
             </DialogContentText>
           </DialogContent>

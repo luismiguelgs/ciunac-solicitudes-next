@@ -153,6 +153,11 @@ export default function Verification({activeStep, handleBack, handleNext}:Props)
      */
     async function verifyEmail()  
     {
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formik.values.email)) {
+            setMsgSnack('Por favor, ingrese una dirección de correo electrónico válida');
+            setOpen(true);
+            return; // Prevent form submission if email is invalid
+        }
         // disable button for 5 minutes
         setDisabled(true)
         setTimeLeft(5 * 60); // start the 5 minute timer

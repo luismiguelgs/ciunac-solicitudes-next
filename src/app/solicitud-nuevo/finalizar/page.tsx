@@ -13,12 +13,19 @@ export default function FinishPage() {
             <img src="/send-email.png" alt="ok" width="100px"/>   
             <Typography variant="h5" ml={2}>Correo enviado exitosamente!</Typography>
         </Box>
-        <Alert sx={{mt:2, mb:2}} severity="info">
+		<Alert sx={{mt:2, mb:2}} severity='info' variant='filled'>
             <Typography variant="subtitle2" gutterBottom style={{ textAlign: 'left', marginLeft:'10px', fontSize:'1.1rem' }}>
-                Puede revisar su correo electrónico para tener los accesos al sistema.
-                Si no llega los accesos, por favor contacte al administrador. <a href="mailto:ciunac.alumnosnuevos@unac.edu.pe" style={{ color: '#1976d2' }}>ciunac.alumnosnuevos@unac.edu.pe</a>
+                El proceso realizado es de para registrar un alumno el la plataforma de CIUNAC, no significa un proceso de matrícula, para el proceso de 
+				prematrícula, y matrícula verificar los manuales enviados a su correo. MUCHAS GRACIAS!!!!
             </Typography>
 		</Alert>
+        <Alert sx={{mt:2, mb:2}} severity="error" variant='filled'>
+            <Typography variant="subtitle2" gutterBottom style={{ textAlign: 'left', marginLeft:'10px', fontSize:'1.1rem' }}>
+                Puede revisar su correo electrónico para tener los accesos al sistema.
+                Si no llega los accesos, por favor contacte al administrador. <a href="mailto:ciunac.alumnosnuevos@unac.edu.pe" style={{ color: 'white' }}>ciunac.alumnosnuevos@unac.edu.pe</a>
+            </Typography>
+		</Alert>
+		
     </Box>
   )
 }
