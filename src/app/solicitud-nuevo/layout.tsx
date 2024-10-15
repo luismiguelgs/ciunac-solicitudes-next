@@ -1,4 +1,3 @@
-import { MyAppBar } from "@/components/mui";
 import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 
 export default function RequestNewStudentLayout({

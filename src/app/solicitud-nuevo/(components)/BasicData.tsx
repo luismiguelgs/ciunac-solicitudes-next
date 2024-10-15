@@ -20,7 +20,7 @@ type Props = {
     programs : IProgram[]
     activeStep : number
     handleBack: () => void
-    handleNext: (values:any) => void
+    handleNext: (values:Ibasicinfo) => void
 }
 export default function BasicData({activeStep, handleBack, handleNext, programs}:Props) 
 { 
@@ -199,7 +199,7 @@ export default function BasicData({activeStep, handleBack, handleNext, programs}
                             onChange={formik.handleChange}
                         >
                         {
-                            programs.map((program: any) => (
+                            programs.map((program: IProgram) => (
                                 <MenuItem key={program.Codigo} value={program.Codigo}>
                                     {program.Nombre}
                                 </MenuItem>

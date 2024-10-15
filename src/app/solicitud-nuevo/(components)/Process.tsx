@@ -24,7 +24,7 @@ export default function Process({programs}:Props) {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     }
 
-    const handleNext = (values:any):void =>{
+    const handleNext = (values:Ibasicinfo | Iverfication):void =>{
        
         switch (activeStep) {
             case 0:

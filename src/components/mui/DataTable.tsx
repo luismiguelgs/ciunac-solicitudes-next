@@ -16,9 +16,13 @@ export interface IColumn {
   align?: 'left' | 'right';
   format?: (value: number) => string;
 }
+type TRow = {
+    id: number | string;
+    [key: string]: string | number;
+}
 
 type Props = {
-    rows:any[],
+    rows:TRow[],
     columns:IColumn[],
     pagination:boolean
 }
