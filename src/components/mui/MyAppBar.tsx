@@ -18,7 +18,7 @@ type Props = {
 
 export default function MyAppBar({title, menuIcon=false, icons=null, handleClickMenu}:Props) 
 {
-    let titleSx:SxProps = menuIcon ? { display: { xs: 'none', sm: 'block'}} : { flexGrow: 1, display: { xs: 'none', sm: 'block'}}
+    const titleSx:SxProps = menuIcon ? { display: { xs: 'none', sm: 'block'}} : { flexGrow: 1, display: { xs: 'none', sm: 'block'}}
 
     return (
         <React.Fragment>
