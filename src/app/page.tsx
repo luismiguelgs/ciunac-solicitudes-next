@@ -1,95 +1,56 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import { Grid, Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material';
+import Link from 'next/link';
 
-export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+const cards = [
+	{ 
+		title: 'Solicitud de Certificados', 
+		image: 'https://images.pexels.com/photos/27001883/pexels-photo-27001883/free-photo-of-ciudad-carretera-trafico-gente.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 
+		link: '/solicitud-certificados' 
+	},
+	{ 
+		title: 'Solicitud de Examen de Ubicación', 
+		image: 'https://images.pexels.com/photos/7377687/pexels-photo-7377687.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 
+		link: '/solicitud-ubicacion' 
+	},
+	{ 
+		title: 'Consulta Estado de Solicitud', 
+		image: 'https://images.pexels.com/photos/19593823/pexels-photo-19593823/free-photo-of-paisaje-naturaleza-nubes-bosque.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 
+		link: '/consulta-solicitud' 
+	},
+	{ 
+		title: 'Consulta de Certificado', 
+		image: 'https://images.pexels.com/photos/14035701/pexels-photo-14035701.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 
+		link: '/consulta-certificado'
+	},
+	{ 
+		title: 'Solicitud alumno nuevo', 
+		image: 'https://images.pexels.com/photos/7175572/pexels-photo-7175572.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 
+		link: '/solicitud-nuevo'
+	},
+];
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+export default function HomePage() {
+  	return (
+		<Grid container spacing={4} p={5}>
+        {cards.map((card, index) => (
+            <Grid item xs={12} sm={6} md={3} key={index}>
+            <Card>
+                <CardActionArea component={Link} href={card.link}>
+                <CardMedia
+                    component="img"
+                    height="140"
+                    image={card.image}
+                    alt={card.title}
+                />
+                <CardContent sx={{minHeight:120}}>
+                    <Typography gutterBottom variant="h5" component="div">
+                    {card.title}
+                    </Typography>
+                </CardContent>
+                </CardActionArea>
+            </Card>
+            </Grid>
+        ))}
+        </Grid>
+	);
 }
