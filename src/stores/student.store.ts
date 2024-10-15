@@ -4,7 +4,7 @@ import { create } from 'zustand';
 
 interface StoreState{
     student: Student;
-    setStudentField: (field: keyof Student, value: any) => void;
+    setStudentField: (field: keyof Student, value: unknown) => void;
 }
 
 const useStore = create<StoreState>((set) => ({
@@ -26,7 +26,7 @@ const useStore = create<StoreState>((set) => ({
         Lugar_residencia: '',
         Codigo_programa: '',
     },
-    setStudentField: (field: keyof Student, value: any) => {
+    setStudentField: (field: keyof Student, value: unknown) => {
         set((state) => ({
             student: {
                 ...state.student,

@@ -1,4 +1,4 @@
-import { FormControlLabel, Switch } from '@mui/material'
+import { FormControlLabel, Switch, SxProps } from '@mui/material'
 import React from 'react'
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
   checked : boolean,
   handleChange?: ((event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void) | undefined
   disabled?: boolean
-  sx?: any
+  sx?: SxProps
 }
 
 export default function MySwitch({name,label,checked,handleChange, disabled=false, sx={}}:Props) 

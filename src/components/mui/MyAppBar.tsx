@@ -1,4 +1,4 @@
-import { AppBar, Badge, Box, IconButton, Toolbar, Tooltip, Typography } from '@mui/material'
+import { AppBar, Badge, Box, IconButton, SxProps, Toolbar, Tooltip, Typography } from '@mui/material'
 import React from 'react'
 import MenuIcon from '@mui/icons-material/Menu';
 
@@ -18,7 +18,7 @@ type Props = {
 
 export default function MyAppBar({title, menuIcon=false, icons=null, handleClickMenu}:Props) 
 {
-    let titleSx:any
+    let titleSx:SxProps = {};
     menuIcon ? titleSx = { display: { xs: 'none', sm: 'block'}} : titleSx = { flexGrow: 1, display: { xs: 'none', sm: 'block'}}
 
     return (

@@ -1,4 +1,4 @@
-import { MenuItem, TextField } from '@mui/material'
+import { MenuItem, SxProps, TextField } from '@mui/material'
 import React from 'react'
 
 type Props = {
@@ -6,11 +6,11 @@ type Props = {
     name:string,
     handleChange(e:React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>):void,
     label:string,
-    value:any
+    value:unknown
     helperText?: React.ReactNode,
-    data:any[],
+    data:{value: unknown, label: string}[],
     error?:boolean,
-    sx?:any,
+    sx?:SxProps,
     fullWidth?:boolean
 }
 
@@ -32,9 +32,9 @@ export default function MySelect({disabled=false,name,handleChange,label, helper
                 sx={sx}
             >
             {
-                data.map((option)=>(
-                    <MenuItem key={option.value} value={option.value}>
-                        {option.label}
+                data.map((option, index)=>(
+                    <MenuItem key={index} value={option.value as string | number}>
+                        {(option as { label: string }).label}
                     </MenuItem>
                 ))
             }
