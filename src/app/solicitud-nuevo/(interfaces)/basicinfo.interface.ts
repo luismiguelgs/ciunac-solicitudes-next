@@ -1,4 +1,5 @@
 import { DocumentType, Gender } from "@/libs/constants";
+import { Dayjs } from "dayjs";
 
 export default interface Ibasicinfo
 {
@@ -9,7 +10,7 @@ export default interface Ibasicinfo
     document_type: DocumentType,
     document: string,
     gender: Gender,
-    birthDate: any,
+    birthDate: Dayjs |string | null,
     phone: string,
     code_program: string
 }

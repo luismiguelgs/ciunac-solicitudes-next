@@ -4,7 +4,7 @@ import Ibasicinfo from '../(interfaces)/basicinfo.interface'
 const msgReq = 'Campo Requerido'
 const msgCharacters = (n:number) => `Campo debe tener ${n} digitos`
 
-let basicinfoSchema = yup.object<Ibasicinfo>({
+const basicinfoSchema = yup.object<Ibasicinfo>({
     firstLastname: yup.string().required(msgReq).trim(),
     code_program: yup.string().required(msgReq).trim(),
     secondLastname: yup.string().required(msgReq).trim(),

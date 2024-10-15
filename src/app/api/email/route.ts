@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { FOOTER, HEAD } from "../(libs)/constants";
-const nodemailer = require("nodemailer");
+import nodemailer from 'nodemailer';
+//const nodemailer = require("nodemailer");
 
 type Body = {
     type:string,

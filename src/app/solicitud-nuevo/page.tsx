@@ -1,6 +1,7 @@
 import Process from './(components)/Process'
+import IProgram from './(interfaces)/programs.interface'
 
-async function getPrograms() {
+async function getPrograms():Promise<IProgram[]> {
     const res = await fetch('https://api.q10.com/v1/programas?Limit=30', {
         method: 'GET',
         headers: {

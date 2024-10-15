@@ -2,6 +2,15 @@ import { NextRequest, NextResponse } from "next/server";
 import { SEDE_JORNADA } from "../(libs)/constants";
 import { getCurretDate_YYYYMMDD } from "../(libs)/util";
 
+type Periodo = {
+    Consegutivo : number,
+    Nombre : string,
+    Fecha_inicio : string,
+    Fecha_fin : string,
+    Ordenamiento : number,
+    Estado: boolean
+}
+
 export async function POST(request:NextRequest)
 {
     const body = await request.json();
@@ -37,7 +46,7 @@ export async function POST(request:NextRequest)
     }    
     
 }
-async function registerStudentToProgram(code:string,dni:string):Promise<any>{
+async function registerStudentToProgram(code:string,dni:string){
     
     const body = {
         Codigo_estudiante: code,
@@ -121,7 +130,7 @@ async function getPeriod():Promise<number>
         })
         const data = await res.json();
         // sorts the response data in descending order by the Ordenamiento field
-        const sortedItems = data.sort((a:any, b:any) => b.Ordenamiento - a.Ordenamiento);
+        const sortedItems = data.sort((a:Periodo, b:Periodo) => b.Ordenamiento - a.Ordenamiento);
         //Return Consecutivo value of the first period in the sorted list
         return sortedItems[0].Consecutivo;
     }catch(error){

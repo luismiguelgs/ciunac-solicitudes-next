@@ -10,10 +10,11 @@ import SwitchResaltado from '@/components/SwitchResaltado';
 import IStudent from '@/interfaces/student.interface';
 import { MyDialog } from '@/components/mui';
 import { useRouter } from 'next/navigation';
+import IProgram from '../(interfaces)/programs.interface';
 
 type Props = {
     handleBack: () => void
-    programs : any[]
+    programs : IProgram[]
 }
 type Condiciones = {
     data:boolean,
@@ -115,7 +116,7 @@ export default function Finish({handleBack, programs}:Props)
                 </Grid>
                 <Grid size={{ xs: 12, sm: 6, md:4 }}>
                     <Typography variant="subtitle2" gutterBottom style={{ textAlign: 'left', marginLeft:'10px' }}>
-                        Programa : <b>{programs.find((p:any) => p.Codigo === student.Codigo_programa).Nombre}</b>
+                        Programa : <b>{programs.find((p:IProgram) => p.Codigo === student.Codigo_programa)?.Nombre}</b>
                     </Typography>
                 </Grid>
             </Grid>

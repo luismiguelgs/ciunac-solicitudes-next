@@ -9,14 +9,15 @@ import { useMask } from '@react-input/mask';
 import { MySelect } from '@/components/mui';
 import Grid from '@mui/material/Grid2';
 import ControlStepper from './ControlStepper';
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import 'dayjs/locale/es';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import useStore from '@/stores/student.store';
+import IProgram from '../(interfaces)/programs.interface';
 
 type Props = {
-    programs : any[]
+    programs : IProgram[]
     activeStep : number
     handleBack: () => void
     handleNext: (values:any) => void
@@ -45,7 +46,7 @@ export default function BasicData({activeStep, handleBack, handleNext, programs}
         },
         validationSchema: basicinfoSchema,
         onSubmit: (values) => {
-            values.birthDate = values.birthDate.format('YYYY-MM-DDTHH:mm:ssZ')
+            values.birthDate = (values.birthDate as Dayjs)?.format('YYYY-MM-DDTHH:mm:ssZ') 
             //alert(JSON.stringify(values, null, 2));
             handleNext(values)
         },
@@ -152,7 +153,7 @@ export default function BasicData({activeStep, handleBack, handleNext, programs}
                         <DatePicker 
                             label="Fecha Nacimiento"
                             name='birthDate'
-                            value={formik.values.birthDate}
+                            value={formik.values.birthDate as Dayjs | null}
                             onChange={(date)=>formik.setFieldValue('birthDate',date)} 
                             maxDate={dayjs(new Date())}
                             slotProps={{

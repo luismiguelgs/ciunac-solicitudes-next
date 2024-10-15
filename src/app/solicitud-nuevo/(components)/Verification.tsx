@@ -15,7 +15,7 @@ import { MySnackBar } from '@/components/mui';
 type Props = {
     activeStep : number
     handleBack: () => void
-    handleNext: (values:any) => void
+    handleNext: (values:Iverfication) => void
 }
 
 export default function Verification({activeStep, handleBack, handleNext}:Props) 

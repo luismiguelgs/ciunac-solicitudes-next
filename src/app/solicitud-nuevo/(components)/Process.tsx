@@ -8,9 +8,10 @@ import BasicData from './BasicData'
 import Finish from './Finish'
 import Ibasicinfo from '../(interfaces)/basicinfo.interface'
 import Iverfication from '../(interfaces)/verification.interface'
+import IProgram from '../(interfaces)/programs.interface'
 
 type Props = {
-    programs: any[]
+    programs: IProgram[]
 }
 
 export default function Process({programs}:Props) {
@@ -31,7 +32,7 @@ export default function Process({programs}:Props) {
                 setStudentField('Email', values0.email);
                 break;
             case 1:
-                let values1 = values as Ibasicinfo
+                const values1 = values as Ibasicinfo
                 setStudentField('Primer_apellido', values1.firstLastname);
                 setStudentField('Segundo_apellido', values1.secondLastname);
                 setStudentField('Primer_nombre', values1.firstName);
