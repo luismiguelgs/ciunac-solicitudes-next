@@ -1,4 +1,3 @@
-import { Icertificado } from "@/interfaces/certificado.interface"
 import CertificadosService from "@/services/certificados.service"
 import { Card, CardContent, Divider,  Paper,  Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
 import Grid from "@mui/material/Grid2"
@@ -21,10 +20,11 @@ async function getCertificateDetail(id:string) {
 
 export default async function GetCertificatePage({params}:{params:{id:string}}) 
 {
-    const certificate = await getCertificate(params.id) as Icertificado
+    const certificate = await getCertificate(params.id)
     const certificateDetail = await getCertificateDetail(params.id)
 
-
+    console.log(certificate);
+    
     return (
         <Grid 
             container 
