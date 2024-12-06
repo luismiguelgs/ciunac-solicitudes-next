@@ -8,7 +8,7 @@ type Props = {
     label:string,
     value:unknown
     helperText?: React.ReactNode,
-    data:{value: unknown, label: string}[],
+    data:{value: unknown, label: string}[] | undefined,
     error?:boolean,
     sx?:SxProps,
     fullWidth?:boolean
@@ -32,7 +32,7 @@ export default function MySelect({disabled=false,name,handleChange,label, helper
                 sx={sx}
             >
             {
-                data.map((option, index)=>(
+                data && data.map((option, index)=>(
                     <MenuItem key={index} value={option.value as string | number}>
                         {(option as { label: string }).label}
                     </MenuItem>

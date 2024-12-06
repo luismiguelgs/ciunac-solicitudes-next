@@ -1,6 +1,6 @@
+'use client'
 import { styled } from '@mui/material/styles';
 import packageJson from '../../package.json';
-
 export enum DocumentType {
     PE01 = "PE01", //DNI
     PE02 = "PE02" //CE
@@ -18,7 +18,9 @@ export const GenderTypeMap: Record<Gender, string> = {
     [Gender.M]: "MASCULINO"
 }
 
-export const VERSION = packageJson.version
+
+
+export const VERSION = packageJson.version;
 
 export const NIVEL = [
     {value:'BASICO',label:'BÁSICO'},
