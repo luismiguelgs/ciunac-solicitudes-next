@@ -13,8 +13,7 @@ import { useSearchParams } from "next/navigation";
 import SolicitudesService from "@/services/solicitudes.service";
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 
-export default function FinishPage() 
-{
+function Finish() {
     const searchParams = useSearchParams()
     const id =  searchParams.get('id')
     const textos = useStore(useTextsStore, (state) => state.textos)
@@ -51,10 +50,8 @@ export default function FinishPage()
         document.body.removeChild(a);
         URL.revokeObjectURL(blobUrl);
     }
-
     return (
-        <React.Suspense fallback={<div>Loading...</div>}>
-            <Box m={2}>
+        <Box m={2}>
                 <Box display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'}>
                     <Alert sx={{mt:2, mb:2}}  severity='error'>
                         Se ha completado el procedimiento puede descargar su cargo! para presentarlo de manera física, para recoger su certificado
@@ -67,7 +64,15 @@ export default function FinishPage()
                     </Box>
                     <Disclamer textoFinal={true} />
                 </Box>
-            </Box>
+        </Box>
+    )
+}
+
+export default function FinishPage() 
+{
+    return (
+        <React.Suspense fallback={<div>Loading...</div>}>
+            <Finish />
         </React.Suspense>
     )
 }
