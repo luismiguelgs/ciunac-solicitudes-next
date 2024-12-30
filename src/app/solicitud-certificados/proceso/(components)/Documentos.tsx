@@ -12,12 +12,11 @@ import useFormStore from '@/stores/rcertificate.store';
 import uploadLogo from '@/assets/upload.svg'
 
 type Props = {
-    onSubmit? : (values?:any) => void
     onBack : () => void
     onNext : () => void
 }
 
-export default function Documentos({onBack, onSubmit, onNext}:Props) 
+export default function Documentos({onBack, onNext}:Props) 
 {
     const formData = useFormStore((state) => state.formData);
     const textos = useStore(useTextsStore, (state) => state.textos);

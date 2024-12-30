@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
 
 type Props = {
     textos: Itexto[],
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     obj: any
 }
 const CargoPdf:React.FC<Props> = ({textos,obj}) => (
@@ -66,7 +67,7 @@ const CargoPdf:React.FC<Props> = ({textos,obj}) => (
 )
 
 function message(text:string, textos:Itexto[]):string{
-    let objEncontrado = textos.find(objeto=> objeto.titulo === text)
+    const objEncontrado = textos.find(objeto=> objeto.titulo === text)
     return objEncontrado ? objEncontrado.texto : '';
 }
 

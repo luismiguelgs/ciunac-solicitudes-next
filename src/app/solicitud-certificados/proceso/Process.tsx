@@ -42,9 +42,6 @@ export default function Process({params}:{params:{[key:string]:string | string[]
 
     const handleNext = () => setActiveStep((prev) => prev + 1);
     const handleBack = () => setActiveStep((prev) => prev - 1);
-    const handleFinish = () => {
-        console.log("Datos enviados:", formData);
-    };
 
     const renderSteps =() => {
         const workerIndex = baseSteps.length - 1; // Posición del paso "Documentos"

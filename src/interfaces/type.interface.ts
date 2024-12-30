@@ -12,18 +12,18 @@ interface Ibase {
     creado?:string,
     modificado?:string
 }
-export interface Ifacultad extends Ibase{}
-export interface Icurso extends Ibase {}
+export type Ifacultad = Ibase
+export type Icurso = Ibase 
 export interface ITipoSolicitud extends Ibase{
     precio: number
 }
 
 export interface Irow{
     id:number,
-    ciclo:String,
-    mes:String,
-    anno:String,
-    profesor?:String
+    ciclo:string,
+    mes:string,
+    anno:string,
+    profesor?:string
 }
 export interface IformData{
     ciclo:string,

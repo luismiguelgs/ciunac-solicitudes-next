@@ -108,21 +108,21 @@ export default class SolicitudesService
         let newID = null
         if(docRef) newID = docRef.id;
         if(data2010){
-          for (let index = 0; index < data2010.length; index++) {
-            const data = {
-              documento:newID,
-              ciclo:data2010[index].ciclo,
-              anno: data2010[index].anno,
-              mes: data2010[index].mes,
-              profesor: data2010[index].profesor
-            }
-            try{
-              let docRef1 = await addDoc(this.db_2010, data)
-              console.log(docRef1);              
-            }catch(err){
-              console.log(err);
-            }            
-          } 
+			for (let index = 0; index < data2010.length; index++) {
+				const data = {
+				documento:newID,
+				ciclo:data2010[index].ciclo,
+				anno: data2010[index].anno,
+				mes: data2010[index].mes,
+				profesor: data2010[index].profesor
+				}
+				try{
+					const docRef1 = await addDoc(this.db_2010, data)
+					console.log(docRef1);              
+				}catch(err){
+					console.log(err);
+				}            
+			} 
         }
 		return newID
     }

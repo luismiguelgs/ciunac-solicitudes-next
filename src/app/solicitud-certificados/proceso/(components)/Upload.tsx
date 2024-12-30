@@ -9,9 +9,11 @@ import { getFileExtension } from '@/libs/utils';
 
 type Props = {
     image: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data: any | undefined
     ubicacion: string,
     titulo: string,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     formik: any
     prop: string,
     activo?: boolean,
@@ -45,9 +47,13 @@ export default function Upload({image,data, formik, ubicacion, titulo, prop, act
     },[image])
     
     const upload = async(file:File) =>{
-        let extension = file.name.split('.')
-        let name = `${data?.dni}-${data?.idioma}-${data?.nivel}.${extension[1]}`
-        extension[1]==='pdf' ? setExtensiones(prevState => ({...prevState, [prop]:true})) : setExtensiones(prevState => ({...prevState, [prop]:false}))
+        const extension = file.name.split('.')
+        const name = `${data?.dni}-${data?.idioma}-${data?.nivel}.${extension[1]}`
+        if(extension[1] === 'pdf'){
+            setExtensiones(prevState => ({...prevState, [prop]:true}))
+        }else{
+            setExtensiones(prevState => ({...prevState, [prop]:false}))
+        }
         setEnviar(true)
         const res = await StorageService.uploadDocument(
             name, //nombre del archivo

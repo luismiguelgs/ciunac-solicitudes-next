@@ -15,10 +15,10 @@ type Props = {
 
 export default function Download({item, textos}:Props) 
 {
-    const descargarPDF = async(item:any) => {
+    const descargarPDF = async(item:Isolicitud) => {
         const obj =  {
-            solicitud:item.solicitud,
-            creado:(item.creado as Date).toLocaleDateString(),
+            solicitud: item.tipo_solicitud,
+            creado: (item.creado as unknown as Date).toLocaleDateString(),
             apellidos:item.apellidos,
             nombres:item.nombres,
             dni:item.dni,

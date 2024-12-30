@@ -11,3 +11,5 @@ const initialValues = {
     agree: false,
     term: false
 }
+
+export{ validationSchema, initialValues}

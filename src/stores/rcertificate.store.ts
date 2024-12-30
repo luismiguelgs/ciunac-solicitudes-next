@@ -33,6 +33,7 @@ export interface FormDataCertificate {
 
 interface FormStore {
   formData: FormDataCertificate;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   updateFormData: (step: keyof FormDataCertificate, values: any) => void;
 }
 

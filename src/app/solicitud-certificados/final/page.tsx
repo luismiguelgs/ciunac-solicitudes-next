@@ -18,6 +18,7 @@ export default function FinishPage()
     const searchParams = useSearchParams()
     const id =  searchParams.get('id')
     const textos = useStore(useTextsStore, (state) => state.textos)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [data, setData] = React.useState<any>({})
 
     React.useEffect(() => {

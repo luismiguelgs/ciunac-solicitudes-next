@@ -13,7 +13,7 @@ import { MyDialog } from '@/components/mui';
 const dniRequired = 'DNI es un campo requerido'
 const dniLength = 'DNI debe ser de 8 digitos' 
 
-let validationSchema = yup.object({
+const validationSchema = yup.object({
     dni: yup.string().required(dniRequired).trim().min(8, dniLength).max(8, dniLength),
 })
 

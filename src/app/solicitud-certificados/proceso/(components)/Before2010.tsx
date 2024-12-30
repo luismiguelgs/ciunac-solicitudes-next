@@ -51,8 +51,10 @@ export default function Before2010({ rows, setRows,  onBack, onNext}:Props)
     })
 
     //variables de prueba
-    let niveles: any[] = []
-    let annos: any[] = []
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const niveles: any[] = []
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const annos: any[] = []
 
     
     //************************Poblar Selects ******************************************************************************* */
@@ -68,7 +70,7 @@ export default function Before2010({ rows, setRows,  onBack, onNext}:Props)
     }
     const agregarCiclo = ():void =>{
         setIndex(new Date().getTime())
-        let row:Irow = {
+        const row:Irow = {
             id:index,
             ciclo:formData.ciclo,
             anno:formData.anno,

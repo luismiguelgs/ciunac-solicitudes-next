@@ -12,6 +12,7 @@ export interface IColumn {
 }
 
 type Props = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
     rows:any[] | undefined,
     columns:IColumn[],
     handleDelete?:(id: number | undefined)=>void,

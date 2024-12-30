@@ -6,8 +6,8 @@ import uploadLogo from '@/assets/upload.svg'
 
 export function validationDocuments(data:ISolicitud, setValidation:React.Dispatch<React.SetStateAction<IdocumentVal>>) : boolean
 {
-    let trabajador = validationUploadImage(data.img_cert_trabajo)
-    let alumno = validationUploadImage(data.img_cert_estudio)
+    const trabajador = validationUploadImage(data.img_cert_trabajo)
+    const alumno = validationUploadImage(data.img_cert_estudio)
         
     const validarTrabajador = ():void => {
         if(trabajador){
