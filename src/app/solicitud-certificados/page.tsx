@@ -3,7 +3,6 @@ import FormStart from './FormStart'
 import Copyright from '@/components/Copyright'
 import TableSimple, { IColumn } from "@/components/TableSimple";
 import TypesService from '@/services/types.service';
-import { ITipoSolicitud } from '@/interfaces/type.interface';
 
 const columns: IColumn[] = [
     { id: 'label', label: 'Certificado', minWidth: 150 },
@@ -15,10 +14,6 @@ const getCertificates = async () => {
     return res.filter(item=> item.value !== 'EXAMEN_DE_UBICACION')
 }
 
-interface Props {
-    certificados: ITipoSolicitud[];
-}
-
 export default async function RequestCertifacatesPage() 
 {
     const certificados = await getCertificates()
@@ -26,7 +21,7 @@ export default async function RequestCertifacatesPage()
     return (
         <Grid container spacing={2} justifyContent={'center'} alignItems={'center'}>
             <Grid size={{xs:12}}>
-                <FormStart />
+                <FormStart certificados={certificados}/>
             </Grid>
             <Grid size={{xs:12, md:6}}>
                 <Copyright />

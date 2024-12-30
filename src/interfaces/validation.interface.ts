@@ -6,15 +6,15 @@ export interface IbasicVal{
     antiguo: boolean
 }
 export interface IfinVal{
-    imagen:string,
+    img_voucher:string,
     numero_voucher:string,
-    pago:number
-    fecha_pago:Date
+    pago:string,
+    fecha_pago:string
 }
 export interface IstudentVal{
     apellidos:string,
     nombres:string,
-    telefono:string
+    celular:string
     idioma:string,
     nivel:string,
     codigo:string,

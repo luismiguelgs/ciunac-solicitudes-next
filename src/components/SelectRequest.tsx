@@ -39,7 +39,7 @@ export default function SelectRequest({handleChange, error, value, helperText, d
     }, []);
 
     if(!data){
-        return (<Skeleton variant='rectangular' height={55} />)
+        return <Skeleton variant='rectangular' height={55} width={'70%'} />
     }
 
     return (

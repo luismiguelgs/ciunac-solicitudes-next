@@ -54,7 +54,12 @@ export default class TypesService
             const data = await getDocs(this.tipo_certificadosDB)
             const result: ITipoSolicitud[] = []
             data.forEach((doc)=>{
-                result.push({...doc.data(), id:doc.id,  creado:changeDate(doc.data().creado), } as ITipoSolicitud)
+                result.push({
+                    ...doc.data(), 
+                    id:doc.id,  
+                    creado:changeDate(doc.data().creado),
+                    modificado:changeDate(doc.data().modificado), 
+                } as ITipoSolicitud)
             })
             return result
         } catch(error){

@@ -9,6 +9,7 @@ type Props = {
 
 export default function DataDisplay({data}:Props)
 {
+	
     return(
         <Grid container spacing={1} justifyContent={'center'}>
           <Grid size={{xs:12, sm:6}} >

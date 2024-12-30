@@ -1,7 +1,7 @@
 import React from 'react'
 import { IdocumentVal } from '@/interfaces/validation.interface';
 import ISolicitud from '@/interfaces/solicitud.interface';            
-import uploadLogo from '../../assets/upload.svg'
+import uploadLogo from '@/assets/upload.svg'
 
 
 export function validationDocuments(data:ISolicitud, setValidation:React.Dispatch<React.SetStateAction<IdocumentVal>>) : boolean

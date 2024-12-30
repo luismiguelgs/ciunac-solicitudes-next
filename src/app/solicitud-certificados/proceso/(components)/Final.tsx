@@ -7,27 +7,29 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import DataDisplay from './DataDisplay'
 import SwitchResaltado from '@/components/SwitchResaltado'
-import Disclamer from './Disclamer'
+import Disclamer from '../../final/Disclamer'
 import SolicitudesService from '@/services/solicitudes.service'
-import ISolicitud from '@/interfaces/solicitud.interface'
 import { Irow } from '@/interfaces/type.interface'
 import useStore from '@/hooks/useStore';
 import { useTextsStore } from '@/stores/types.stores';
 import { useRouter } from 'next/navigation';
+import { FormDataCertificate } from '@/stores/rcertificate.store';
+import Isolicitud from '@/interfaces/solicitud.interface';
 
 type Props = {
-    data:ISolicitud
+    data:FormDataCertificate,
     handleBack : () => void,
-	constancia:string,
-	data2010:Irow[],
+	data2010?:Irow[],
 }
 type Condiciones = {
     condi:boolean,
     aceptar:boolean
   }
   
-export default function Final({data, handleBack, constancia, data2010 }:Props) 
+export default function Final({data, handleBack , data2010=[] }:Props) 
 {
+	//console.log(data.finData);
+
 	const textos = useStore(useTextsStore, (state) => state.textos)
 
 	const router = useRouter()
@@ -41,28 +43,30 @@ export default function Final({data, handleBack, constancia, data2010 }:Props)
       	[event.target.name]: event.target.checked,
     	});
   	};
-    const handleFinish = () =>{
+    const handleFinish = async() =>{
     	//guardar nuevo registro
-    	SolicitudesService.newItem(data, constancia, data2010)
+    	const resId =  await SolicitudesService.newItem({...data.verifyData, ...data.basicData, ...data.finData} as Isolicitud,  data2010)
     	//Ir a la pagina final
-		router.push('./solicitud-certificados/final')
+		router.push(`/solicitud-certificados/final/?id=${resId}`)
     	setOpen(false)
   	}
+
+	if(!data) return null
 
     return (
         <Box sx={{m:2, display:'flex', flexDirection:'column'}}>
             <Alert sx={{mt:2, mb:2}} severity="info">
-				{textos?.find(objeto=> objeto.titulo === 'texto_ubicacion_3')?.texto}
+				{textos?.find(objeto=> objeto.titulo === 'texto_1_final')?.texto}
                 <Link href="https://ciunac.unac.edu.pe/">ciunac.unac.edu.pe</Link>
 			</Alert>
-            <DataDisplay data={data} />
+            <DataDisplay data={{...data.verifyData, ...data.basicData, ...data.finData} as Isolicitud} />
             <Grid container spacing={1} justifyContent='center'>
 				<Grid size={{xs:6}}>
 					<SwitchResaltado
 					checked={condiciones.condi}
 					mensaje='Marcar si los datos indicados lineas arriba son los correctos' 
 					label="Los datos proporcionados son los correctos"
-					name="data" 
+					name="condi" 
 					handleChange={handleChangeSwitch}
 					fullWidth={true}/>
 				</Grid>
@@ -94,8 +98,8 @@ export default function Final({data, handleBack, constancia, data2010 }:Props)
 			</Box>
             <MyDialog 
 				type="ALERT"
-				title={data.tipo_solicitud}
-				content={`Enviar datos correspondientes a su solicitud: ${data.tipo_solicitud}`}
+				title={data?.verifyData?.tipo_solicitud as string}
+				content={`Enviar datos correspondientes a su solicitud: ${data.verifyData?.tipo_solicitud}`}
 				open={open}
 				setOpen={setOpen}
 				actionFunc={handleFinish}

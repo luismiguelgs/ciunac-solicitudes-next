@@ -1,47 +1,49 @@
 'use client'
 import React from 'react'                   
-import { Alert, Box } from '@mui/material'
+import { Alert, Box, Button } from '@mui/material'
 import Grid from '@mui/material/Grid2';                                                 
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { IdocumentVal } from '@/interfaces/validation.interface';
 import Upload from './Upload';
-import ControlStepper from './ControlStepper';
 import { useFormik } from 'formik';
-import { validationDocuments } from '@/services/validation.service';
 import useStore from '@/hooks/useStore';
-import useStoreRequest from '@/stores/request.store';
 import { useTextsStore } from '@/stores/types.stores';
-import Isolicitud from '@/interfaces/solicitud.interface';
+import useFormStore from '@/stores/rcertificate.store';
+import uploadLogo from '@/assets/upload.svg'
 
 type Props = {
-    validation: IdocumentVal,
-    onSubmit : (values?:any) => void
-    activeStep: number,
-    setValidation : React.Dispatch<React.SetStateAction<IdocumentVal>>
-    handleBack : () => void
+    onSubmit? : (values?:any) => void
+    onBack : () => void
+    onNext : () => void
 }
 
-export default function Documentos({validation,setValidation ,activeStep, handleBack, onSubmit}:Props) 
+export default function Documentos({onBack, onSubmit, onNext}:Props) 
 {
-    const data = useStore(useStoreRequest, (state) => state.request);
+    const formData = useFormStore((state) => state.formData);
     const textos = useStore(useTextsStore, (state) => state.textos);
-    const { setRequest } = useStoreRequest();
-    const [imageCertTrabajo, setImageCertTrabajo] = React.useState<string>('');
-    const [imageCertEstudio, setImageCertEstudio] = React.useState<string>('');
+    const [validation, setValidation] = React.useState<IdocumentVal>({cert_trabajador: false, cert_ciunac: false})
+    const updateFormData = useFormStore((state) => state.updateFormData);
 
-    //const {data, setData, textos} = useStateContext()
     const formik = useFormik({
-        initialValues: {},
-        onSubmit: () => {
-            if (validationDocuments(data as Isolicitud, setValidation)) {
-                setRequest('certificado_trabajo',imageCertTrabajo)
-                setRequest('img_cert_estudio',imageCertEstudio)
-                onSubmit()
+        initialValues: {
+            img_cert_trabajo: uploadLogo.src,
+            img_cert_estudio: uploadLogo.src,
+        },
+        onSubmit: (values) => {
+            if(formData.verifyData?.trabajador && values.img_cert_trabajo === uploadLogo.src) {
+                setValidation((prevBasicVal)=>({...prevBasicVal, cert_trabajador:true}))    
+            }
+            else if(formData.verifyData?.alumno_ciunac && values.img_cert_estudio === uploadLogo.src) {
+                setValidation((prevBasicVal)=>({...prevBasicVal, cert_ciunac:true}))
+            }else{
+                //alert(JSON.stringify(values, null, 2));
+                updateFormData('documents', values);
+                onNext()
             }
         }
     })
 
-    const md = data?.trabajador && data.alumno_ciunac ? 4 : 6
+    const md = formData?.verifyData?.trabajador && formData?.verifyData?.alumno_ciunac ? 4 : 6
 
     return (
         <Box sx={{ flexGrow: 1, p:1 }} component='form' onSubmit={formik.handleSubmit}>
@@ -70,12 +72,16 @@ export default function Documentos({validation,setValidation ,activeStep, handle
                     }
                 </Grid>
                 {
-                    data?.trabajador && (
+                    formData.verifyData?.trabajador && (
                         <Grid size={{xs:12, md:md}}>
                             <Upload 
-                                imagen={data.img_cert_trabajo as string}
-                                data={data} 
-                                setData={setImageCertTrabajo} 
+                                image={formData.documents?.img_cert_trabajo as string}
+                                data={{
+                                    dni:formData.verifyData?.dni,
+                                    idioma: formData?.basicData?.idioma, 
+                                    nivel: formData?.basicData?.nivel,
+                                }} 
+                                formik={formik}
                                 ubicacion='trabajadores' 
                                 prop='img_cert_trabajo' 
                                 titulo='Subir Certificado de trabajor UNAC' />
@@ -83,12 +89,16 @@ export default function Documentos({validation,setValidation ,activeStep, handle
                     )
                 }
                 {
-                    data?.alumno_ciunac && (
+                    formData.verifyData?.alumno_ciunac && (
                         <Grid size={{xs:12, md:md}}>
                             <Upload 
-                                imagen={data.img_cert_estudio as string}
-                                data={data} 
-                                setData={setImageCertEstudio} 
+                                image={formData.documents?.img_cert_estudio as string}
+                                data={{
+                                    dni:formData.verifyData?.dni,
+                                    idioma: formData?.basicData?.idioma, 
+                                    nivel: formData?.basicData?.nivel,
+                                }} 
+                                formik={formik}
                                 ubicacion='certificados' 
                                 prop='img_cert_estudio' 
                                 titulo='Subir Certificado de Estudio CIUNAC'/>
@@ -96,7 +106,10 @@ export default function Documentos({validation,setValidation ,activeStep, handle
                     )
                 }
             </Grid>
-            <ControlStepper activeStep={activeStep} handleBack={handleBack} steps={3}/>
+            <Grid size={{xs:12}} display={'flex'} gap={4}>
+                <Button onClick={onBack} fullWidth variant="contained" color='secondary' sx={{ mt: 3, mb: 2 }}>Anterior</Button>
+                <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>Siguiente</Button>
+            </Grid>
         </Box>
     )
 }

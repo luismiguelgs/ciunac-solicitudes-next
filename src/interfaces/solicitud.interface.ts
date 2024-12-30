@@ -18,7 +18,7 @@ export default interface Isolicitud {
     fecha_pago?:string,
     timestamp?:string,
     trabajador:boolean,
-    voucher?:string,
+    img_voucher?:string,
     estado?:string,
     pago:number,
     alumno_ciunac?:boolean,

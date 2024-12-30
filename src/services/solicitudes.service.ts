@@ -1,5 +1,5 @@
 import { firestore } from '@/libs/firebase';
-import { collection, query, where, getDocs ,serverTimestamp, addDoc, orderBy, Timestamp} from 'firebase/firestore'
+import { collection, query, where, getDocs ,serverTimestamp, addDoc, orderBy, Timestamp, getDoc, doc} from 'firebase/firestore'
 import { changeDate, obtenerPeriodo } from '@/libs/utils';
 import  Isolicitud  from '@/interfaces/solicitud.interface';
 import { Irow } from '@/interfaces/type.interface';
@@ -20,9 +20,20 @@ export default class SolicitudesService
             return { ...item.data(), id:item.id, creado:changeDate(item.data().creado) } as Isolicitud
         }));
     }
+	
+	public static async getItemId(id:string){
+		const docRef = doc(this.db, id)
+		const docSnap = await getDoc(docRef)
+		if (docSnap.exists()) {
+		  return { ...docSnap.data(), id:docSnap.id, creado:changeDate(docSnap.data().creado) } as Isolicitud
+		} else {
+		  console.log("No such document!");
+		  return null
+		}
+	}
 
-    public static async getItem(dni:string)
-    {
+    public static async getItem(dni:string){
+		
         const q = query(
             this.db,
             where('dni','==',dni) , 
@@ -40,6 +51,7 @@ export default class SolicitudesService
             return data;
         });
     }
+
     public static async fetchRecord(idioma:string,nivel:string,dni:string,solicitud:string){
         const q = query(
             this.db,
@@ -60,9 +72,11 @@ export default class SolicitudesService
           return data;
         });
     }
-    public static async newItem(data:Isolicitud, constancia:string, data2010:Irow[]){
+    public static async newItem(data:Isolicitud, data2010:Irow[]):Promise<string|null>
+	{
+		console.log(data);
         const dataS = {
-            solicitud:data.solicitud,
+            solicitud:data.tipo_solicitud,
             estado:'NUEVO',
             pago:+data.pago,
             dni:data.dni,
@@ -76,8 +90,8 @@ export default class SolicitudesService
             nivel:data.nivel,
             facultad:data.facultad,
             codigo:data.codigo,
-            certificado_trabajo:constancia,
-            voucher:data.voucher,
+            certificado_trabajo:data.certificado_trabajo || '',
+            voucher:data.img_voucher,
             numero_voucher:data.numero_voucher,
             fecha_pago: data.fecha_pago,
             manual:false,
@@ -110,5 +124,6 @@ export default class SolicitudesService
             }            
           } 
         }
+		return newID
     }
 }

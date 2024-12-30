@@ -16,8 +16,9 @@ import ReCAPTCHA from "react-google-recaptcha";
 import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
 import { MySnackBar } from '@/components/mui';
 import { useRouter } from 'next/navigation';
+import { ITipoSolicitud } from '@/interfaces/type.interface';
 
-export default function FormStart() 
+export default function FormStart({certificados}:{certificados?:ITipoSolicitud[]}) 
 {
     let textos = useStore(useTextsStore, (state) => state.textos)
     const captchaRef = React.useRef<ReCAPTCHA>(null)
@@ -41,12 +42,13 @@ export default function FormStart()
         initialValues,
         validationSchema,
         onSubmit: (values) => {
+            const precio = certificados?.filter((cer)=> cer.value === values.tipo_solicitud)[0].precio
             if(!captchaRef.current?.getValue()){
                 setOpen(true)
             }else{
                 setOpen(false)
                 const queryParams = new URLSearchParams(
-                    Object.entries(values).reduce((acc, [key, value]) => {
+                    Object.entries({...values, pago: precio}).reduce((acc, [key, value]) => {
                       acc[key] = String(value);
                       return acc;
                     }, {} as Record<string, string>)

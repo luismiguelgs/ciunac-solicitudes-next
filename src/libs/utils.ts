@@ -23,6 +23,7 @@ export const changeDate = (date:Timestamp, hora=true):string|undefined => {
     if(date === null) return
     const fecha:Date  = date?.toDate()
     // Obtener diferentes partes de la fecha y hora
+    if(!fecha) return ''
     const dia = fecha.getDate();
     const mes = fecha.getMonth() + 1; // Los meses comienzan desde 0, se suma 1
     const anio = fecha.getFullYear();
@@ -47,4 +48,8 @@ export const changeDate = (date:Timestamp, hora=true):string|undefined => {
       return fechaFormateada
     }
 } 
-  
+
+export function getFileExtension(url: string): string | null {
+	const match = url.match(/\.([a-zA-Z0-9]+)(?=\?|$)/);
+	return match ? match[1] : null;
+}

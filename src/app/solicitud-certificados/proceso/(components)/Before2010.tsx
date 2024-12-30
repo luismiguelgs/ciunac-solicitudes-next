@@ -5,11 +5,11 @@ import { useMask } from '@react-input/mask';
 import {MySnackBar, MySelect} from "@/components/mui";
 import TableSimple, { IColumn } from "@/components/TableSimple";
 import { IformData, Irow } from "@/interfaces/type.interface";
-import ControlStepper from "./ControlStepper";
 import { useFormik } from "formik";
 import useStore from "@/hooks/useStore";
 import { useTextsStore } from "@/stores/types.stores";
-import useStoreRequest from "@/stores/request.store";
+import Grid from "@mui/material/Grid2";
+import useFormStore from "@/stores/rcertificate.store";
 
 const columns: IColumn[] = [
     { id: 'ciclo', label: 'CICLO', minWidth: 150 },
@@ -21,15 +21,15 @@ const columns: IColumn[] = [
 type Props = {
     rows: Irow[],
     setRows: React.Dispatch<React.SetStateAction<Irow[]>>
-    onSubmit : (values:any) => void
-    handleBack : () => void
-    activeStep: number
+    //onSubmit : (values:any) => void
+    onBack : () => void
+    onNext : () => void 
 }
 
-export default function Before2010({ rows, setRows, onSubmit, handleBack, activeStep}:Props)
+export default function Before2010({ rows, setRows,  onBack, onNext}:Props)
 {   
     const textos = useStore(useTextsStore, (state) => state.textos)
-    const data = useStore(useStoreRequest, (state) => state.request)    
+    const data = useFormStore((state) => state.formData);
 
     const [open, setOpen] = React.useState<boolean>(false)
 
@@ -45,7 +45,7 @@ export default function Before2010({ rows, setRows, onSubmit, handleBack, active
                 console.log(values);
             }else{
                 console.log(rows)
-                onSubmit({})
+                onNext();
             }
         }
     })
@@ -63,7 +63,7 @@ export default function Before2010({ rows, setRows, onSubmit, handleBack, active
     }
     const poblarArreglo = (ciclos:number):void =>{
         for (let index = 1; index <= ciclos; index++) {
-            niveles.push({value:data?.nivel + ' ' + index,label:data?.nivel + ' ' + index})                
+            niveles.push({value:data?.basicData?.nivel + ' ' + index,label:data?.basicData?.nivel + ' ' + index})                
         }
     }
     const agregarCiclo = ():void =>{
@@ -86,7 +86,7 @@ export default function Before2010({ rows, setRows, onSubmit, handleBack, active
         return tupla ? tupla[2] : 0; // Devolver 0 si no se encuentra la combinación
     };
     
-    poblarArreglo(obtenerNumeroCiclos(String(data?.idioma), String(data?.nivel)))
+    poblarArreglo(obtenerNumeroCiclos(String(data?.basicData?.idioma), String(data?.basicData?.nivel)))
     poblarAnnos()
 
     const [formData, setFormData] = React.useState<IformData>({
@@ -106,7 +106,7 @@ export default function Before2010({ rows, setRows, onSubmit, handleBack, active
     return(
         <Box sx={{m:1}} component='form' onSubmit={formik.handleSubmit}>
             <Alert sx={{m:1}} severity="warning">
-                {textos?.find(objeto=> objeto.titulo === 'texto_1_2010')?.texto}<b>{` IDIOMA: ${data?.idioma}`}</b> 
+                {textos?.find(objeto=> objeto.titulo === 'texto_1_2010')?.texto}<b>{` IDIOMA: ${data.basicData?.idioma}`}</b> 
             </Alert>
             <MySelect 
                 name="ciclo"
@@ -159,12 +159,17 @@ export default function Before2010({ rows, setRows, onSubmit, handleBack, active
             <Alert sx={{m:1}} severity="info">
                 En caso usted no tenga una matrícula antes del año 2010 puede omitir este paso.
             </Alert>
-            <ControlStepper activeStep={activeStep} handleBack={handleBack} steps={4} />
+
             <MySnackBar 
                 open={open}
                 setOpen={setOpen}
                 severity="error"
                 content="Ingresar los datos solicitados de ciclo, mes, año" />
+            <Grid size={{xs:12}} display={'flex'} gap={4}>
+                <Button onClick={onBack} fullWidth variant="contained" color='secondary' sx={{ mt: 3, mb: 2 }}>Anterior</Button>
+                <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>Siguiente</Button>
+            </Grid>
         </Box>
+        
     )
 }
