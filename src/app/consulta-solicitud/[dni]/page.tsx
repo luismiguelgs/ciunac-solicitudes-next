@@ -49,7 +49,7 @@ export default async function ConsultDetailPage(params:{params:{dni:string}})
                                         
                                         }
                                         </Avatar>}
-                                        title={item.solicitud}
+                                        title={item.tipo_solicitud}
                                         subheader={(new Date((item.creado as Timestamp).seconds * 1000)).toLocaleDateString()}>
                                     </CardHeader>
                                     {
