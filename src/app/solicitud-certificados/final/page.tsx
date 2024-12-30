@@ -53,19 +53,21 @@ export default function FinishPage()
     }
 
     return (
-        <Box m={2}>
-            <Box display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'}>
-                <Alert sx={{mt:2, mb:2}}  severity='error'>
-					Se ha completado el procedimiento puede descargar su cargo! para presentarlo de manera física, para recoger su certificado
-				</Alert>
-                <Box display={'flex'} alignItems={'center'} gap={10}>
-                    <Image src={pdfImage} alt="pdf" width={50} height={50} onClick={exportPDF} />
-                    <Button color="success" variant="contained" onClick={exportPDF} autoFocus disabled={false} endIcon={<CloudDownloadIcon />} >
-						Descargar Cargo
-					</Button>
+        <React.Suspense fallback={<div>Loading...</div>}>
+            <Box m={2}>
+                <Box display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'}>
+                    <Alert sx={{mt:2, mb:2}}  severity='error'>
+                        Se ha completado el procedimiento puede descargar su cargo! para presentarlo de manera física, para recoger su certificado
+                    </Alert>
+                    <Box display={'flex'} alignItems={'center'} gap={10}>
+                        <Image src={pdfImage} alt="pdf" width={50} height={50} onClick={exportPDF} />
+                        <Button color="success" variant="contained" onClick={exportPDF} autoFocus disabled={false} endIcon={<CloudDownloadIcon />} >
+                            Descargar Cargo
+                        </Button>
+                    </Box>
+                    <Disclamer textoFinal={true} />
                 </Box>
-                <Disclamer textoFinal={true} />
             </Box>
-        </Box>
+        </React.Suspense>
     )
 }
