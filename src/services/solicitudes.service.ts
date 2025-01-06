@@ -47,6 +47,7 @@ export default class SolicitudesService
             const data = doc.data();
             // Agregamos el campo 'id' al objeto data
             data.creado = (data.creado as Timestamp).toDate();
+			data.modificado = (data.modificado as Timestamp).toDate();
             data.id = doc.id;
             return data;
         });

@@ -39,7 +39,7 @@ export default function FormConsult()
             }else{
                 const result = await SolicitudesService.getItem(values.dni) as Isolicitud[];
                 if(result.length > 0){   
-                    router.push(`./detalle/${values.dni}`)
+                    router.push(`./consulta-solicitud/${values.dni}`)
                 }else{
                     setOpen(true)
                     setDisabled(false)

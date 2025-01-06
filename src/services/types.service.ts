@@ -15,7 +15,7 @@ export default class TypesService
             const data = await getDocs(this.textosDB)
             const result: Itexto[] = []
             data.forEach((doc)=>{
-                result.push({...doc.data(), id:doc.id } as Itexto)
+                result.push({...doc.data(), id:doc.id, creado:changeDate(doc.data().creado), modificado:changeDate(doc.data().modificado) } as Itexto)
             })
             return result
         } catch(error){

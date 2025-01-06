@@ -15,10 +15,10 @@ type Props = {
 
 export default function Download({item, textos}:Props) 
 {
-    const descargarPDF = async(item:Isolicitud) => {
+    const descargarPDF = async() => {
         const obj =  {
-            solicitud: item.tipo_solicitud,
-            creado: (item.creado as unknown as Date).toLocaleDateString(),
+            solicitud: item.tipo_solicitud || 'SOLICITUD DE CERTIFICADO',
+            creado: new Date(item.creado as string).toLocaleDateString(),
             apellidos:item.apellidos,
             nombres:item.nombres,
             dni:item.dni,
@@ -27,8 +27,8 @@ export default function Download({item, textos}:Props)
             pago: item.pago,
             voucher: item.numero_voucher
         }
-        console.log(obj);
-        
+        //alert(JSON.stringify(obj, null, 2));
+
         const cargoPdfElement = <CargoPdf textos={textos} obj={obj}/>
         const blobPdf = await pdf(cargoPdfElement).toBlob()
         const blobUrl = URL.createObjectURL(blobPdf);
@@ -46,15 +46,14 @@ export default function Download({item, textos}:Props)
         document.body.removeChild(a);
         URL.revokeObjectURL(blobUrl);
     }
-
     return (
-        <Box key={item.id} sx={{ display: 'flex', alignItems: 'center', gap: '10px', mt:2}}>
-            <img src={pdfImage.src} alt={item.id}  width='50px' style={{margin:'5px', cursor:'pointer'}} onClick={()=>descargarPDF(item)} ></img>
-            <Button size="large" onClick={()=>descargarPDF(item)}>{`${item.dni}-${item.idioma}-${item.nivel}.PDF`}</Button>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px', mt:2}}>
+            <img src={pdfImage.src} alt={item.id}  width='50px' style={{margin:'5px', cursor:'pointer'}} onClick={()=>descargarPDF()} />
+            <Button size="large" onClick={()=>descargarPDF()}>{`${item.dni}-${item.idioma}-${item.nivel}.PDF`}</Button>
             <WestIcon color='error' />
             <Typography variant="h6" color="error">
                 Puede descargar su cargo aqui!
             </Typography>
         </Box>
-    )
+    ) 
 }

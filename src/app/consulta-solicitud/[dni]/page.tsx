@@ -1,11 +1,10 @@
 import Isolicitud from "@/interfaces/solicitud.interface";
 import SolicitudesService from "@/services/solicitudes.service";
-import { Alert, Avatar, Card, CardContent, CardHeader, CardMedia, CssBaseline, Paper, Stack, Typography } from "@mui/material";
+import { Alert, Avatar, Card, CardContent, CardHeader, CardMedia, Paper, Stack, Typography } from "@mui/material";
 import Grid from '@mui/material/Grid2';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
-import { Timestamp } from 'firebase/firestore';
 import proceso1 from '@/assets/2.png'
 import proceso2 from '@/assets/3.png'
 import Download from "./Download";
@@ -13,27 +12,47 @@ import TypesService from "@/services/types.service";
 import { Itexto } from "@/interfaces/type.interface";
 
 async function getRequests(dni:string){
-    const res = await SolicitudesService.getItem(dni) as Isolicitud[];
-    return res
+    try {
+        const res = await SolicitudesService.getItem(dni) as Isolicitud[];
+        return res;
+    } catch (error) {
+        console.error('Error fetching requests:', error);
+        return [];
+    }
 }
 async function getTextos(){
-    const res = await TypesService.fetchTextos() as Itexto[];
-    return res
+    try {
+        const res = await TypesService.fetchTextos() as Itexto[];
+        return res;
+    } catch (error) {
+        console.error('Error fetching textos:', error);
+        return [];
+    }
 }
 
-export default async function ConsultDetailPage(params:{params:{dni:string}}) 
+export default async function ConsultDetailPage({ params }: { params: { dni: string } }) 
 {
-    const {dni} = params.params
+    const { dni } = params;
     const data = await getRequests(dni);
     const textos = await getTextos();
 
     return (
-        <Grid container spacing={2} component={"main"} sx={{ height: "90vh"}}>
-            <CssBaseline />
-            <Grid size={{xs:12, sm:8, md:5}} component={Paper} elevation={6} square sx={{ p:3}}>
+        <Grid 
+            container 
+            component={"main"} 
+            sx={{ 
+                height: "100vh", 
+                width: "100%",
+                backgroundImage: "url(/unsplash.jpg)",
+                backgroundRepeat: "no-repeat", 
+                backgroundSize: "cover",
+                backgroundPosition: "center", 
+                justifyContent: "center", 
+                alignItems: "center" }}>
+            <Grid size={{xs:12, sm:8, md:5}} component={Paper} elevation={6} square sx={{ p:2 }}>
             {
-                data.length > 0 && (<>
-                    <Typography variant="h5">{`${data[0].apellidos} ${data[0].nombres}`}</Typography>
+                data && data.length > 0 && (<>
+                    <Typography variant="h5" align="center">{`${data[0].apellidos} ${data[0].nombres}`}</Typography>
                     <Stack spacing={2}>
                     {
                             data.map((item) => (
@@ -50,7 +69,7 @@ export default async function ConsultDetailPage(params:{params:{dni:string}})
                                         }
                                         </Avatar>}
                                         title={item.tipo_solicitud}
-                                        subheader={(new Date((item.creado as Timestamp).seconds * 1000)).toLocaleDateString()}>
+                                        subheader={(new Date(item.creado as unknown as Date)).toLocaleDateString()}>
                                     </CardHeader>
                                     {
                                         item.estado === 'NUEVO' ? 
@@ -74,14 +93,14 @@ export default async function ConsultDetailPage(params:{params:{dni:string}})
                                         <Typography variant="h6" color="text.secondary">
                                                 Idioma: <b>{item.idioma}</b> Nivel: <b>{item.nivel}</b>
                                         </Typography>
-                                        <Download item={item} textos={textos}/>
+                                        { textos && <Download item={item} textos={textos}/>}
                                     </CardContent>
                                 </Card>            
                             ))
                     }
-                        <Alert severity='info' sx={{m:1}}>
+                        { textos && <Alert severity='info' sx={{m:1}}>
                             {textos.find(objeto=> objeto.titulo === 'texto_ubicacion_5')?.texto}
-                        </Alert>
+                        </Alert>}
                     </Stack>
                 </>)
             } 
