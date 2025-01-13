@@ -1,5 +1,5 @@
 'use client'
-import { Box, Button, TextField } from '@mui/material'
+import { Box, Button, LinearProgress, TextField } from '@mui/material'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
 import ReCAPTCHA from "react-google-recaptcha";
@@ -67,7 +67,8 @@ export default function FormConsult()
                     helperText={formik.touched.dni && formik.errors.dni}
                 />
                 <ReCAPTCHA sitekey={String(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY)} ref={captchaRef} />
-                <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} disabled={disabled}>Buscar</Button>
+                <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} disabled={disabled}>{disabled? 'Buscando...':'Buscar'}</Button>
+                <LinearProgress color='secondary' variant='indeterminate' sx={{ display: disabled ? 'block' : 'none' , mt: 1, mb: 1}}/>
             </Box>
             <MyDialog 
                 content={errorMsg}
@@ -77,6 +78,5 @@ export default function FormConsult()
                 type='SIMPLE'
             />
         </>
-    
     )
 }
