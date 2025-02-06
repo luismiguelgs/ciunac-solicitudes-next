@@ -8,7 +8,7 @@ import FinData from './(components)/FinData'
 import Documents from './(components)/Documents'
 import Final from './(components)/Final'
 
-export default function ProcesoPage() 
+function ProcesoContent()
 {
 	const searchParams = useSearchParams()
 	const [activeStep, setActiveStep] = React.useState<number>(0)
@@ -86,4 +86,13 @@ export default function ProcesoPage()
             </Box>
 		</Box>
 	)
+}
+
+// Main component with Suspense boundary
+export default function ProcesoPage() {
+    return (
+        <React.Suspense fallback={<div>Loading...</div>}>
+            <ProcesoContent />
+        </React.Suspense>
+    );
 }
