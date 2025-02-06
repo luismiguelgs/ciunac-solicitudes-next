@@ -2,13 +2,14 @@ export interface IbasicVal{
     tipo_solicitud: string,
     email:string,
     dni:string,
-    trabajador: boolean,
-    antiguo: boolean
+    trabajador?: boolean,
+    antiguo?: boolean,
+    alumno_ciunac?: boolean,
 }
 export interface IfinVal{
     img_voucher:string,
     numero_voucher:string,
-    pago:string,
+    pago:number,
     fecha_pago:string
 }
 export interface IstudentVal{

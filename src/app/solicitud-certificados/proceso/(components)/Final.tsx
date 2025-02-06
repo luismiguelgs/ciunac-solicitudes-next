@@ -24,12 +24,11 @@ type Props = {
 type Condiciones = {
     condi:boolean,
     aceptar:boolean
-  }
+}
   
 export default function Final({data, handleBack , data2010=[] }:Props) 
 {
-	//console.log(data.finData);
-
+	
 	const textos = useStore(useTextsStore, (state) => state.textos)
 
 	const router = useRouter()

@@ -30,14 +30,21 @@ type Props = {
     ubication?: boolean
 }
 
-export default function SelectSubject({handleChange,sx, error, value, helperText, disabled}:Props) 
+export default function SelectSubject({handleChange,sx, error, value, helperText, disabled, ubication=false}:Props) 
 {
     const init = useStore(useSubjectsStore, (state) => state.subjects);
     const [data, setData] = React.useState<Icurso[] | undefined>(init);
 
     React.useEffect(() => {
         const getData = async () => {
-            const subs = await TypesService.fetchCursos()
+            let subs = await TypesService.fetchCursos()
+            if (ubication){
+                subs = subs.filter(item => 
+                    item.value !== 'QUECHUA' &&
+                    item.value !== 'FRANCES' &&
+                    item.value !== 'CHINO_MANDARIN'
+                )
+            }
             useSubjectsStore.setState({ subjects: subs })
             setData(subs)
         }
@@ -55,6 +62,7 @@ export default function SelectSubject({handleChange,sx, error, value, helperText
                 disabled={disabled}
                 sx={{
                     ...sx,
+                    mt:1,
                     height: '56px', // Altura fija
                     '.MuiSelect-select': {
                     display: 'flex',

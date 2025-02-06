@@ -13,8 +13,9 @@ type Props = {
     value: string | number
     disabled?: boolean
     helperText: React.ReactNode,
+    margin?: boolean
 }
-export default function SelectFaculty({handleChange, error, value, helperText, disabled}:Props) 
+export default function SelectFaculty({handleChange, error, value, helperText, disabled, margin=true}:Props) 
 {
     const init = useStore(useFacultiesStore, (state) => state.faculties);
     const [data, setData] = React.useState<Icurso[] | undefined>(init);
@@ -39,7 +40,7 @@ export default function SelectFaculty({handleChange, error, value, helperText, d
                 label='Facultad'
                 name='facultad'
                 value={value}
-                sx={{m:0.5}}
+                sx= {{mt: margin ? 1 : 0}}
                 disabled={disabled}
                 helperText={helperText}
             />

@@ -157,8 +157,7 @@ export default function BasicData({onNext}:{onNext:() => void})
                             <Button type="button" disabled={true} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>Anterior</Button>
                             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>Siguiente</Button>
                         </Grid>
-                </Grid>
-                
+            </Grid>    
         </Box>
     )
 }

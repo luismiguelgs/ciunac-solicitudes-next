@@ -8,7 +8,7 @@ import Upload from '../../../../components/Upload';
 import { useFormik } from 'formik';
 import useStore from '@/hooks/useStore';
 import { useTextsStore } from '@/stores/types.stores';
-import useFormStore from '@/stores/rcertificate.store';
+import useFormStore from '@/stores/rexamubication.store';
 import uploadLogo from '@/assets/upload.svg'
 
 type Props = {
@@ -16,9 +16,9 @@ type Props = {
     onNext : () => void
 }
 
-export default function Documentos({onBack, onNext}:Props) 
+export default function Documents({onBack, onNext}:Props) 
 {
-    const formData = useFormStore((state) => state.formData);
+	const formData = useFormStore((state) => state.formData);
     const textos = useStore(useTextsStore, (state) => state.textos);
     const [validation, setValidation] = React.useState<IdocumentVal>({cert_trabajador: false, cert_ciunac: false})
     const updateFormData = useFormStore((state) => state.updateFormData);
@@ -110,5 +110,5 @@ export default function Documentos({onBack, onNext}:Props)
                 <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>Siguiente</Button>
             </Grid>
         </Box>
-    )
+	)
 }
