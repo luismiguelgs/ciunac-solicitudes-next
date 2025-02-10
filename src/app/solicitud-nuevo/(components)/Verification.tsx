@@ -88,7 +88,8 @@ export default function Verification({activeStep, handleBack, handleNext}:Props)
                         <Image src={'/email-verification.png'} alt='logo' width={190} height={190} />
                         <Alert severity="warning" sx={{mt:2, fontSize:'1.2rem'}}>
                             <b>Comprobar tu correo electronico:</b> Hacer click en <b>COMPROBAR</b>, se le enviará un correo electrónico a la dirección que proporcionó 
-                            con un número de verificación. Deberá ser ingresado en la caja de texto de <b>código de verificación</b>.
+                            con un número de verificación. Deberá ser ingresado en la caja de texto de <b>código de verificación</b> En caso no vea el código
+                            en su bandeja principal, puede verificar en correos no deseados (SPAM).
                         </Alert>
                     </Box>
                 </Grid>
