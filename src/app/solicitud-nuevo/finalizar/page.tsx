@@ -1,4 +1,5 @@
 import { Alert, Box, Typography } from '@mui/material'
+import Image from 'next/image'
 import React from 'react'
 
 export default function FinishPage() {
@@ -6,7 +7,7 @@ export default function FinishPage() {
     <Box display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'} sx={{width:'100%', height:'100%'}}>
         <Typography variant="h3">Proceso Finalizado</Typography>
         <Box m={2} display={'flex'} alignItems={'center'}>
-            <img src="/save-student.png" alt="ok" width="100px"/>   
+            <Image src={'/save-student.png'} alt='ok' width={100} height={100} />
             <Typography variant="h5" ml={2}>Estudiante guardado exitosamente!</Typography>
         </Box>
         <Box m={2} display={'flex'} alignItems={'center'} >

@@ -22,14 +22,11 @@ export default async function page()
     const certificados = await getCertificates()
     const cronogramas = await getSchedules()
 
-    let index:number = 0
-
     const verifySchedules = (cronogramas:IcronogramaExam[]) => {
         for (let i = 0; i < cronogramas.length; i++) {
             const schedule = cronogramas[i];
             const active = schedule.active
             if(active){
-                index = i
                 return true
             }
         }
