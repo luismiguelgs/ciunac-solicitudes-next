@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 import React from 'react'
 import pdfImage from "@/assets/pdf.png";
-import Disclamer from "./Disclamer";
+import Disclamer from "../(components)/Disclamer";
 import { Itexto } from "@/interfaces/type.interface";
 import CargoPdf from "./CargoPdf";
 import SolicitudesExamenService from '@/services/solicitud-examen.service'

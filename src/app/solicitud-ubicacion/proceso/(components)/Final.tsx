@@ -13,7 +13,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DataDisplay from './DataDisplay'
 import SwitchResaltado from '@/components/SwitchResaltado'
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
-import Disclamer from './Disclamer'
+import Disclamer from '@/app/solicitud-ubicacion/(components)/Disclamer'
 type Props = {
     data:FormDataUbicationExam,
     handleBack : () => void,
@@ -40,7 +40,7 @@ export default function Final({data, handleBack}:Props)
 
 	const handleFinish = async() =>{
 		//guardar nuevo registro
-		const resId =  await SolicitudesExamenService.newItem({...data.verifyData, ...data.basicData, ...data.finData} as IsolUbicacion)
+		const resId =  await SolicitudesExamenService.newItem({...data.verifyData, ...data.basicData, ...data.finData, ...data.documents} as IsolUbicacion)
 		//Ir a la pagina final
 		router.push(`/solicitud-ubicacion/final/?id=${resId}`)
 		setOpen(false)
@@ -73,7 +73,7 @@ export default function Final({data, handleBack}:Props)
 						fullWidth={true}/>
 				</Grid>
 			</Grid>
-			<Disclamer textos={textos} />
+			<Disclamer />
 			<Box sx={{display:'flex',flexDirection:'column',pt:2, alignContent:'center', alignItems:'center'}}>
 				<Box sx={{flex: '1 1 auto'}}>
 					<Button color='primary' onClick={handleBack} sx={{mr:1}} variant="outlined" startIcon={<ArrowBackIcon />}>

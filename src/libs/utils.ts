@@ -53,3 +53,8 @@ export function getFileExtension(url: string): string | null {
 	const match = url.match(/\.([a-zA-Z0-9]+)(?=\?|$)/);
 	return match ? match[1] : null;
 }
+
+export function getMonthName(fecha:Date): string {
+    const opciones: Intl.DateTimeFormatOptions = { month: 'long' };
+    return fecha.toLocaleString('es-ES', opciones); // 'es-ES' para español
+}

@@ -54,7 +54,7 @@ const CargoPdf:React.FC<Props> = ({textos,obj}) => (
                 <Text style={styles.data}>{`Idioma: ${obj.idioma.toLocaleUpperCase()}`}</Text>
                 <Text style={styles.data}>{`Nivel: ${obj.nivel.toLocaleUpperCase()}`}</Text>
                 <Text style={styles.data}>{`Pago: S/${obj.pago}`}</Text>
-                <Text style={styles.data}>{`Número de Voucher: ${obj.voucher}`}</Text>
+                <Text style={styles.data}>{`Número de Voucher: ${obj.numero_voucher}`}</Text>
                 <Text style={styles.text}>
                     {message('texto_ubicacion_4',textos)}
                 </Text>

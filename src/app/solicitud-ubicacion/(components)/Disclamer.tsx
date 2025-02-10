@@ -1,15 +1,17 @@
-import { Itexto } from '@/interfaces/type.interface'
+import useStore from '@/hooks/useStore'
+import { useTextsStore } from '@/stores/types.stores'
 import { Alert } from '@mui/material'
 import React from 'react'
 
+
 type Props = {
-    textos: Itexto[] | undefined,
     textoFinal? : boolean
 }
 
-export default function Disclamer({textoFinal=false, textos}:Props) 
+export default function Disclamer({textoFinal=false}:Props) 
 {
-    
+    const textos = useStore(useTextsStore, (state) => state.textos)
+
     return (
         <React.Fragment>
             {

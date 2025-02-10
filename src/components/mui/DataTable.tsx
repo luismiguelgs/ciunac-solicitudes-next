@@ -17,7 +17,7 @@ export interface IColumn {
   format?: (value: number) => string;
 }
 type TRow = {
-    id: number | string;
+    id: number | string ;
     [key: string]: string | number;
 }
 
