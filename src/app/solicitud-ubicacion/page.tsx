@@ -7,12 +7,6 @@ const getCertificates = async () => {
     const res = await TypesService.fetchTipoCertificados()
     return res
 }
-/*
-const getSchedules = async () => {
-    const res = await CronogramaExamService.getAll()
-    return res
-}
-*/
 
 export default async function page() 
 {
