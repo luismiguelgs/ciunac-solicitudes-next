@@ -8,7 +8,7 @@ import { useFormik } from 'formik';
 import TypesService from '@/services/types.service';
 import { useMask } from '@react-input/mask';
 import { IbasicVal } from '@/interfaces/validation.interface';
-import { initialValues, validationSchema } from './start.schema';
+import { initialValues, validationSchema } from '../start.schema';
 import { ITipoSolicitud } from '@/interfaces/type.interface';
 import { Box, Button, InputAdornment, TextField } from '@mui/material';
 import  Grid from '@mui/material/Grid2';
