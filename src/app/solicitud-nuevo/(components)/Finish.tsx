@@ -157,8 +157,9 @@ export default function Finish({handleBack, programs}:Props)
 			</Box>
             <Alert sx={{mt:2, mb:2}} severity='error' variant='filled'>
                 <Typography variant="subtitle2" gutterBottom style={{ textAlign: 'left', marginLeft:'10px', fontSize:'1.1rem' }}>
-                    Si encuentra algún problema, y la información no es correcta, no llega el correo, o no tiene acceso a la cuenta, 
-                    por favor contacte al administrador. <a  href="mailto:ciunac.alumnosnuevos@unac.edu.pe" style={{ color: 'white' }}>ciunac.alumnosnuevos@unac.edu.pe</a>
+                    Si encuentra algún problema, y la información no es correcta, no llega el correo (verficar en la carpeta de no deseados),
+                     o no tiene acceso a la cuenta, por favor contacte al administrador. 
+                     <a  href="mailto:ciunac.alumnosnuevos@unac.edu.pe" style={{ color: 'white' }}>ciunac.alumnosnuevos@unac.edu.pe</a>
                 </Typography>
 			</Alert>
             

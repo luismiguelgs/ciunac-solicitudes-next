@@ -11,9 +11,7 @@ async function getPrograms():Promise<IProgram[]> {
         }
     })
     let data:IProgram[] = await res.json()
-    console.log(data);
     data = data.filter((program:IProgram) => program.Numero_resolucion === null)
-   
     return data
 }
 

@@ -11,10 +11,10 @@ import Grid from '@mui/material/Grid2';
 import ControlStepper from './ControlStepper';
 import dayjs, { Dayjs } from 'dayjs';
 import 'dayjs/locale/es';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+dayjs.locale('es');
 import useStore from '@/stores/student.store';
 import IProgram from '../(interfaces)/programs.interface';
+import DateInput from '@/components/DateInput';
 
 type Props = {
     programs : IProgram[]
@@ -160,22 +160,13 @@ export default function BasicData({activeStep, handleBack, handleNext, programs}
                     />
                 </Grid>
                 <Grid size={{xs:12, sm:6, md:4}}>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker 
-                            label="Fecha Nacimiento"
-                            name='birthDate'
-                            value={formik.values.birthDate as Dayjs | null}
-                            onChange={(date)=>formik.setFieldValue('birthDate',date)} 
-                            maxDate={dayjs(new Date())}
-                            slotProps={{
-                                textField:{
-                                    fullWidth:true,
-                                    error: Boolean(formik.touched.birthDate) && Boolean(formik.errors.birthDate),
-                                    helperText: (formik.touched.birthDate && formik.errors.birthDate) as string
-                                }
-                            }}
-                        />
-                    </LocalizationProvider>
+                    <DateInput
+                        label="Fecha Nacimiento"
+                        name='birthDate'
+                        formik={formik}
+                        error={formik.touched.birthDate && Boolean(formik.errors.birthDate)}
+                        helperText={ (formik.touched.birthDate && formik.errors.birthDate) as string }
+                    />
                 </Grid>
                 <Grid size={{ xs: 12, sm: 6, md:4 }}>
                     <TextField
