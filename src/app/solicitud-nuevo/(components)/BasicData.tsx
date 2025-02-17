@@ -163,6 +163,7 @@ export default function BasicData({activeStep, handleBack, handleNext, programs}
                     <DateInput
                         label="Fecha Nacimiento"
                         name='birthDate'
+                        value={formik.values.birthDate as Dayjs | null}
                         formik={formik}
                         error={formik.touched.birthDate && Boolean(formik.errors.birthDate)}
                         helperText={ (formik.touched.birthDate && formik.errors.birthDate) as string }
@@ -189,6 +190,7 @@ export default function BasicData({activeStep, handleBack, handleNext, programs}
                 </Grid>
                
                 <Grid size={{xs:12, sm:6, md:4}}>
+                    
                     <FormControl fullWidth>
                         <InputLabel id="select-program">Programa</InputLabel>
                         <Select 

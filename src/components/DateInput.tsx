@@ -10,11 +10,12 @@ type Props = {
     name : string,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     formik : any,
-    error: boolean | undefined,
+    value?: Dayjs | null,
+    error?: boolean,
     helperText: string
 }
 
-export default function DateInput({label, name, formik, error, helperText}:Props) 
+export default function DateInput({label,value, name, formik, error, helperText}:Props) 
 {
     return (
         <React.Fragment>
@@ -22,7 +23,7 @@ export default function DateInput({label, name, formik, error, helperText}:Props
                 <DatePicker 
                     label={label}
                     name={name}
-                    value={formik.values.birthDate as Dayjs | null}
+                    value={value}
                     onChange={(date)=>formik.setFieldValue(name,date)} 
                     maxDate={dayjs(new Date())}
                     slotProps={{

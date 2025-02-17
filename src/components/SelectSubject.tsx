@@ -5,7 +5,6 @@ import TypesService from '@/services/types.service'
 import { useSubjectsStore } from '@/stores/types.stores'
 import React from 'react'
 import { SelectChangeEvent } from '@mui/material/Select';
-//import { MySelect } from './mui'
 import { FormControl, FormHelperText, InputLabel, MenuItem, Select, Skeleton } from '@mui/material'
 
 const getIconByCode = (code:string) => {
@@ -92,20 +91,3 @@ export default function SelectSubject({handleChange,sx, error, value, helperText
         </FormControl>
     )
 }
-
-/* 
- data && (
-            <MySelect
-                data={data}
-                handleChange={handleChange}
-                error={error}
-                label='Idioma'
-                name='idioma'
-                value={value}
-                sx={{m:0.5}}
-                disabled={disabled}
-                helperText={helperText}
-            />
-        )
-
-*/

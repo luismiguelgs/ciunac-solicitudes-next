@@ -12,6 +12,7 @@ import { DialogAlert } from '@/components/mui';
 import { useRouter } from 'next/navigation';
 import IProgram from '../(interfaces)/programs.interface';
 
+
 type Props = {
     handleBack: () => void
     programs : IProgram[]
@@ -24,6 +25,7 @@ type Condiciones = {
 export default function Finish({handleBack, programs}:Props) 
 {
     const router = useRouter()
+    
     const { student } = useStore()
     const [condiciones, setCondiciones] = React.useState<Condiciones>({data:false, aceptar:false})
     const [loading, setLoading] = React.useState<boolean>(false)
