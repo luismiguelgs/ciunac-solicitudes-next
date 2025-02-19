@@ -8,7 +8,7 @@ import { useFormik } from 'formik';
 import TypesService from '@/services/types.service';
 import { useMask } from '@react-input/mask';
 import { IbasicVal } from '@/interfaces/validation.interface';
-import { initialValues, validationSchema } from '../start.schema';
+import { initialValues, validationSchema } from './start.schema';
 import { ITipoSolicitud } from '@/interfaces/type.interface';
 import { Box, Button, InputAdornment, TextField } from '@mui/material';
 import  Grid from '@mui/material/Grid2';
@@ -16,9 +16,14 @@ import EmailIcon from '@mui/icons-material/Email';
 import Warning from '@/components/Warning';
 import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
 import { MySnackBar } from '@/components/mui';
+import SolicitudesExamenService from '@/services/solicitud-examen.service';
 
+type Props = {
+    certificados?: ITipoSolicitud[]
+    setBloqueo: React.Dispatch<React.SetStateAction<boolean>>
+}
 
-export default function FormStart({certificados}:{certificados?:ITipoSolicitud[]}) 
+export default function FormStart({ certificados, setBloqueo }: Props) 
 {
     let textos = useStore(useTextsStore, (state) => state.textos)
     const captchaRef = React.useRef<ReCAPTCHA>(null)
@@ -26,6 +31,7 @@ export default function FormStart({certificados}:{certificados?:ITipoSolicitud[]
 
     //estado de snackbar informativo
     const [open, setOpen] = React.useState<boolean>(false);
+    const [buttonBlock, setButtonBlock] = React.useState<boolean>(false);
 
     React.useEffect(() => {
         const texts = async () => {
@@ -41,22 +47,38 @@ export default function FormStart({certificados}:{certificados?:ITipoSolicitud[]
     const formik = useFormik<IbasicVal>({
         initialValues,
         validationSchema,
-        onSubmit: (values) => {
+        onSubmit: async(values) => {
             const precio = certificados?.filter((cer)=> cer.value === values.tipo_solicitud)[0].precio
             if(!captchaRef.current?.getValue()){
                 setOpen(true)
             }else{
-                setOpen(false)
-                const queryParams = new URLSearchParams(
+                setButtonBlock(true)
+                //verificar si esta solicitud es repetida ******************************
+                if( await verifyRepeatRequest(values.dni)){
+                    setBloqueo(true)
+                }else{
+                    setOpen(false)
+                    const queryParams = new URLSearchParams(
                     Object.entries({...values, pago: precio}).reduce((acc, [key, value]) => {
                       acc[key] = String(value);
                       return acc;
                     }, {} as Record<string, string>)
                   ).toString();
-                router.push(`./solicitud-ubicacion/proceso?${queryParams}`);
+                    router.push(`./solicitud-ubicacion/proceso?${queryParams}`);
+                } 
             }
         },
     })
+
+    const verifyRepeatRequest = async (dni: string) => {
+        const result = await SolicitudesExamenService.getItem(dni, true)
+        console.log(result);
+        if(result.length > 0){
+            return true
+        }else{
+            return false
+        }
+    }
     return (
         <Box component={'form'} sx={{p:2}} noValidate autoComplete='off' onSubmit={formik.handleSubmit}>
             <Grid container spacing={2} >
@@ -111,7 +133,7 @@ export default function FormStart({certificados}:{certificados?:ITipoSolicitud[]
                     <ReCAPTCHA sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string} ref={captchaRef} />
                 </Grid>
                 <Grid size={{xs:12, md:6}} justifyContent="center" display={'flex'} alignItems={'center'}>
-                    <Button type="submit" variant="contained" size="large" endIcon={<PlayCircleFilledIcon />} sx={{m:2}}>
+                    <Button type="submit" variant="contained" size="large" endIcon={<PlayCircleFilledIcon />} sx={{m:2}} disabled={buttonBlock}>
                         Avanzar
                     </Button>
                 </Grid>

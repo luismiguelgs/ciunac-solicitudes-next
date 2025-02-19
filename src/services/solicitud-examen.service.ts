@@ -8,24 +8,37 @@ export default class SolicitudesExamenService
     private static db = collection(firestore, 'solicitudes')
     private static db_prospectos = collection(firestore, 'prospectos')
 
-    public static async getItem(dni:string)
+    public static async getItem(dni:string, ubication=false)
     {
-        const q = query(
-            this.db,
-            where('dni','==',dni) , 
-            orderBy('creado','desc')
-        )
-        // Obtenemos los documentos que cumplen la consulta
-        const  querySnapshot = await getDocs(q)
+        try{
+            const conditions = [where('dni', '==', dni)];
 
-        // Devolvemos un array con los datos de los documentos, incluyendo el ID
-        return querySnapshot.docs.map((doc) => {
-            const data = doc.data();
-            // Agregamos el campo 'id' al objeto data
-            data.id = doc.id;
-            return data;
-        });
+            if (ubication) {
+                conditions.push(
+                    where('estado', '!=', 'ENTREGADO'),
+                    where('solicitud', '==', 'EXAMEN_DE_UBICACION')
+                );
+            }
+
+            const q = query(
+                this.db,
+                ...conditions,
+                orderBy('creado', 'desc')
+            );
+
+            const querySnapshot = await getDocs(q);
+
+            return querySnapshot.docs.map((doc) => ({
+                ...doc.data(), // Evitar sobrescritura de 'id'
+                id: doc.id,    // Solo se agrega si no existe
+            }));
+        }
+        catch(err){
+            console.error(err);
+            throw err
+        }
     }
+    
     public static async fetchRecord(idioma:string,nivel:string,dni:string,solicitud:string){
         const q = query(
             this.db,

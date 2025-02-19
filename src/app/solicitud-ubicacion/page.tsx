@@ -1,7 +1,7 @@
 import Grid from '@mui/material/Grid2'
 import Copyright from '@/components/Copyright'
 import TypesService from '@/services/types.service';
-import VerifySchedules from './VerifySchedules';
+import VerifySchedules from './(components)/VerifySchedules';
 
 const getCertificates = async () => {
     const res = await TypesService.fetchTipoCertificados()
