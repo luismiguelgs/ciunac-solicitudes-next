@@ -2,11 +2,39 @@ import { firestore } from '@/libs/firebase';
 import { collection, query, where, getDocs ,serverTimestamp, addDoc, doc, getDoc, orderBy} from 'firebase/firestore'
 import IsolUbicacion from '@/interfaces/IsolUbicacion';
 import { changeDate, obtenerPeriodo } from '@/libs/utils';
+import { Iexamen, IexamenNotas } from '@/interfaces/examen.interface';
 
 export default class SolicitudesExamenService
 {
     private static db = collection(firestore, 'solicitudes')
     private static db_prospectos = collection(firestore, 'prospectos')
+    private static db_examenes = collection(firestore, 'examenes')
+    private static db_notas = collection(firestore, 'notas_ubicacion')
+
+
+    public static async getUbication(dni:string):Promise<IsolUbicacion[]>
+    {
+        try {
+            const q = query(this.db,
+                where('dni', '==', dni),
+                where('solicitud', '==', 'EXAMEN_DE_UBICACION'),
+                orderBy('creado', 'desc')
+            )
+            const querySnapshot = await getDocs(q);
+
+            return querySnapshot.docs.map((doc) => {
+                const data = doc.data() as IsolUbicacion;
+                return {
+                    ...data,
+                    id: doc.id,
+                };
+            });
+
+        } catch (error) {
+            console.error(error);
+            throw error
+        }
+    }
 
     public static async getItem(dni:string, ubication=false)
     {
@@ -63,9 +91,9 @@ export default class SolicitudesExamenService
     {
         const dataProspecto = {
             dni: data.dni,
-            nombres: data.nombres,
-            apellidos: data.apellidos,
-            telefono: data.telefono,
+            nombres: data.nombres.toLocaleUpperCase().trim(),
+            apellidos: data.apellidos.toLocaleUpperCase().trim(),
+            telefono: data.telefono.trim(),
             facultad : data.facultad,
             email: data.email,
             codigo: data.codigo || '',
@@ -89,8 +117,8 @@ export default class SolicitudesExamenService
         if(docRef){
             const dataSolicitud = {
                 solicitud: data.tipo_solicitud,
-                apellidos: data.apellidos,
-                nombres: data.nombres,
+                apellidos: data.apellidos.toLocaleUpperCase().trim(),
+                nombres: data.nombres.toLocaleUpperCase().trim(),
                 periodo : obtenerPeriodo(),
                 estado:'NUEVO',
                 dni:data.dni,
@@ -130,4 +158,54 @@ export default class SolicitudesExamenService
 			return null
 		}
 	}
+    //Examenes - funciones ****************************************
+    public static async fetchItems():Promise<Iexamen[]>{
+        try{
+            const snapShot = await getDocs(this.db_examenes)
+            const data = snapShot.docs.map((item)=>{
+                return{
+                    ...item.data(),
+                    id: item.id,
+                    fecha_examen: item.data().fecha_examen ? new Date(item.data().fecha_examen.seconds * 1000) : null,
+                    fecha_final: item.data().fecha_final ? new Date(item.data().fecha_final.seconds * 1000) : null,
+                    creado: item.data().creado ? changeDate(item.data().creado) : null,
+                    modificado: item.data().modificado ? changeDate(item.data().modificado) : null
+                } as Iexamen
+            })
+            return data
+        }
+        catch(err){
+            if (err instanceof Error) {
+                console.error('Error al actualizar el elemento:', err.message);
+            } else {
+                console.error('Error desconocido al actualizar el elemento:', err);
+            }
+            throw err
+        }
+    }
+    //Calificaciones Detalle - funciones ************************
+    public static async fetchItemsDetail(dni: string):Promise<IexamenNotas[]>
+    {
+        console.info('fetchItemsDetail', dni)
+        try{
+            const q = query(this.db_notas,where('dni','==',dni))
+            const snapShot = await getDocs(q)
+            
+            const data = snapShot.docs.map((item)=>{
+                return{
+                    ...item.data(),
+                    id: item.id,
+                } as IexamenNotas
+            })
+            return data
+        }
+        catch(err){
+            if (err instanceof Error) {
+                console.error('Error al actualizar el elemento:', err.message);
+            } else {
+                console.error('Error desconocido al actualizar el elemento:', err);
+            }
+            throw err
+        }
+    }
 }
