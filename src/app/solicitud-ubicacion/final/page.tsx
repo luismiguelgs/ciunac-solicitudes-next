@@ -57,7 +57,7 @@ function Finish()
 		<Box m={2}>
             <Box display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'}>
                 <Alert sx={{mt:2, mb:2}}  severity='error'>
-                    Se ha completado el procedimiento puede descargar su cargo! para presentarlo de manera física, para recoger su certificado
+                    Se ha completado el procedimiento puede descargar su cargo! se presentará de manera física para poder rendir su examen de ubicación.
                 </Alert>
                 <Box display={'flex'} alignItems={'center'} gap={10}>
                     <Image src={pdfImage} alt="pdf" width={50} height={50} onClick={exportPDF} />
