@@ -2,7 +2,6 @@
 import { MyDialog } from '@/components/mui'
 import useStore from '@/hooks/useStore'
 import SolicitudesExamenService from '@/services/solicitud-examen.service'
-import { FormDataUbicationExam } from '@/stores/rexamubication.store'
 import { useTextsStore } from '@/stores/types.stores'
 import { Alert, Box, Button, Link } from '@mui/material'
 import { useRouter } from 'next/navigation'
@@ -14,8 +13,9 @@ import DataDisplay from './DataDisplay'
 import SwitchResaltado from '@/components/SwitchResaltado'
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import Disclamer from '@/app/solicitud-ubicacion/(components)/Disclamer'
+import { FormDataSolicitud } from '@/stores/solicitud.store'
 type Props = {
-    data:FormDataUbicationExam,
+    data:FormDataSolicitud,
     handleBack : () => void,
 }
 

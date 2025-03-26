@@ -9,7 +9,6 @@ type Props = {
 
 export default function DataDisplay({data}:Props)
 {
-	
     return(
         <Grid container spacing={1} justifyContent={'center'}>
           <Grid size={{xs:12, sm:6}} >
@@ -93,8 +92,15 @@ export default function DataDisplay({data}:Props)
                 Monto Pagado: <b>S/{data.pago}</b>
               </Typography>
             </Grid>
+            { data.tipo_trabajador &&
             <Grid size={{xs:12, sm:6}}>
+              <Typography variant="subtitle2" gutterBottom style={{ textAlign: 'left',marginLeft:'10px' }}>
+                Tipo de trabajador: <b>{data.tipo_trabajador}</b>
+              </Typography>
+            </Grid>
+            }
+			<Grid size={{xs:12, sm:6}}>
             </Grid>
         </Grid>
-      ) 
+    ) 
 }

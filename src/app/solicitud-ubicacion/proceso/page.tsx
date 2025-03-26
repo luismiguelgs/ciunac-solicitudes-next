@@ -1,10 +1,10 @@
 'use client'
-import useFormStore from '@/stores/rexamubication.store'
+import useFormStore from '@/stores/solicitud.store'
 import { Box, Step, StepLabel, Stepper } from '@mui/material'
 import { useSearchParams } from 'next/navigation'
 import React from 'react'
 import BasicData from './(components)/BasicData'
-import FinData from './(components)/FinData'
+import FinData from '@/components/FinData'
 import Documents from './(components)/Documents'
 import Final from './(components)/Final'
 
@@ -30,6 +30,7 @@ function ProcesoContent()
             trabajador: worker,
             alumno_ciunac: alumno,
             tipo_solicitud: searchParams.get('tipo_solicitud'),
+            tipo_trabajador: searchParams.get('tipo_trabajador'),
             pago: price
         })
     },[searchParams.get('dni'), searchParams.get('email'), searchParams.get('trabajador'), searchParams.get('alumno_ciunac'), searchParams.get('tipo_solicitud'), searchParams.get('pago')])

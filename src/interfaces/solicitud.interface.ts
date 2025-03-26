@@ -21,6 +21,7 @@ export default interface Isolicitud {
     trabajador:boolean,
     img_voucher?:string,
     estado?:string,
+    tipo_trabajador?:string,
     pago:number,
     alumno_ciunac?:boolean,
     img_cert_trabajo?:string,

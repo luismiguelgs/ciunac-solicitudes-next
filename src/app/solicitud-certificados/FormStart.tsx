@@ -14,7 +14,7 @@ import { useTextsStore } from '@/stores/types.stores';
 import TypesService from '@/services/types.service';
 import ReCAPTCHA from "react-google-recaptcha";
 import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
-import { MySnackBar } from '@/components/mui';
+import { MySelect, MySnackBar } from '@/components/mui';
 import { useRouter } from 'next/navigation';
 import { ITipoSolicitud } from '@/interfaces/type.interface';
 
@@ -26,6 +26,7 @@ export default function FormStart({certificados}:{certificados?:ITipoSolicitud[]
 
     //estado de snackbar informativo
     const [open, setOpen] = React.useState<boolean>(false);
+    const [info, setInfo] = React.useState<string>('');
 
     React.useEffect(() => {
         const texts = async () => {
@@ -45,6 +46,7 @@ export default function FormStart({certificados}:{certificados?:ITipoSolicitud[]
             const precio = certificados?.filter((cer)=> cer.value === values.tipo_solicitud)[0].precio
             if(!captchaRef.current?.getValue()){
                 setOpen(true)
+                setInfo('Ingresar los datos solicitados RE-CAPTCHA')
             }else{
                 setOpen(false)
                 const queryParams = new URLSearchParams(
@@ -116,6 +118,23 @@ export default function FormStart({certificados}:{certificados?:ITipoSolicitud[]
                         mensaje="Hacer click si usted termino antes del 2010."
                         name="antiguo" />
                 </Grid>
+                {
+                    formik.values.trabajador && (
+                        <Grid size={{xs:12, md:6}}>
+                            <MySelect 
+                                data={[{value:'DOCENTE',label:'DOCENTE Y FAMILIARES'},{value:'ADMINISTRATIVO',label:'ADMINISTRATIVO CAS/NOMBRADO'}]}
+                                error={formik.touched.tipo_trabajador && Boolean(formik.errors.tipo_trabajador)}
+                                name='tipo_trabajador'
+                                sx={{m:1,mr:1}}
+                                disabled={!formik.values.trabajador}
+                                label='Tipo de Trabajador'
+                                value={formik.values.tipo_trabajador as string}
+                                handleChange={formik.handleChange}
+                                helperText={formik.touched.tipo_trabajador && formik.errors.tipo_trabajador}
+                            />
+                        </Grid>
+                    )
+                }
                 <Grid size={{xs:12, md:6}} justifyContent="center" display={'flex'} alignItems={'center'}>
                     <ReCAPTCHA sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string} ref={captchaRef} />
                 </Grid>
@@ -127,7 +146,7 @@ export default function FormStart({certificados}:{certificados?:ITipoSolicitud[]
             </Grid>
             <MySnackBar 
                 open= {open}
-                content="Ingresar los datos solicitados RE-CAPTCHA"
+                content={info}
                 setOpen={setOpen}
                 variant="filled"
                 severity="error" />

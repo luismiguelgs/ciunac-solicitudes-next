@@ -7,6 +7,7 @@ export interface FormDataUbicationExam {
         antiguo: boolean;
         email: string;
         tipo_solicitud: string;
+        tipo_trabajador: string;
         alumno_ciunac: boolean;
     }
     basicData?: {

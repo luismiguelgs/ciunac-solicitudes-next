@@ -13,11 +13,11 @@ import { Irow } from '@/interfaces/type.interface'
 import useStore from '@/hooks/useStore';
 import { useTextsStore } from '@/stores/types.stores';
 import { useRouter } from 'next/navigation';
-import { FormDataCertificate } from '@/stores/rcertificate.store';
 import Isolicitud from '@/interfaces/solicitud.interface';
+import { FormDataSolicitud } from '@/stores/solicitud.store';
 
 type Props = {
-    data:FormDataCertificate,
+    data:FormDataSolicitud,
     handleBack : () => void,
 	data2010?:Irow[],
 }

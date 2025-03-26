@@ -8,7 +8,7 @@ import Upload from '../../../../components/Upload';
 import { useFormik } from 'formik';
 import useStore from '@/hooks/useStore';
 import { useTextsStore } from '@/stores/types.stores';
-import useFormStore from '@/stores/rexamubication.store';
+import useFormStore from '@/stores/solicitud.store';
 import uploadLogo from '@/assets/upload.svg'
 
 type Props = {

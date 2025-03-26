@@ -3,7 +3,7 @@ import React from 'react'
 import Grid from '@mui/material/Grid2';
 import { Alert, Box, Button, InputAdornment, TextField } from '@mui/material';
 import { initialValues, validationSchema } from '../(schemas)/basic.schema';
-import useFormStore from '@/stores/rexamubication.store';
+import useFormStore from '@/stores/solicitud.store';
 import { useStore } from 'zustand';
 import { useTextsStore } from '@/stores/types.stores';
 import { useFormik } from 'formik';
@@ -43,7 +43,8 @@ export default function BasicData({onNext}:{onNext:() => void})
         if(formData?.basicData) {
             formik.setValues({
                 ...formData.basicData,
-                img_dni: formData.basicData.img_dni || ''
+                img_dni: formData.basicData?.img_dni || uploadLogo.src,
+                telefono: formData.basicData?.telefono || ''
             })
         }
     },[formData?.basicData, formik.setValues]);
@@ -153,6 +154,7 @@ export default function BasicData({onNext}:{onNext:() => void})
                             inputRef={codigoRef}
                             required
                             fullWidth
+                            disabled={!formik.values.alumno}
                             name='codigo'
                             sx={{mt:1}}
                             onBlur={formik.handleBlur}

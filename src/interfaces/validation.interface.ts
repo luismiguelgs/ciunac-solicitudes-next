@@ -4,6 +4,7 @@ export interface IbasicVal{
     dni:string,
     trabajador?: boolean,
     antiguo?: boolean,
+    tipo_trabajador?: string,
     alumno_ciunac?: boolean,
 }
 export interface IfinVal{

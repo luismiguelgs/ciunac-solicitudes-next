@@ -8,7 +8,7 @@ import Upload from '../../../../components/Upload';
 import { useFormik } from 'formik';
 import useStore from '@/hooks/useStore';
 import { useTextsStore } from '@/stores/types.stores';
-import useFormStore from '@/stores/rcertificate.store';
+import useFormStore from '@/stores/solicitud.store';
 import uploadLogo from '@/assets/upload.svg'
 
 type Props = {
@@ -23,6 +23,8 @@ export default function Documentos({onBack, onNext}:Props)
     const [validation, setValidation] = React.useState<IdocumentVal>({cert_trabajador: false, cert_ciunac: false})
     const updateFormData = useFormStore((state) => state.updateFormData);
 
+    console.log(formData);
+    
     const formik = useFormik({
         initialValues: {
             img_cert_trabajo: uploadLogo.src,

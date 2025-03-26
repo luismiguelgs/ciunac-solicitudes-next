@@ -15,7 +15,7 @@ import  Grid from '@mui/material/Grid2';
 import EmailIcon from '@mui/icons-material/Email';
 import Warning from '@/components/Warning';
 import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
-import { MySnackBar } from '@/components/mui';
+import { MySelect, MySnackBar } from '@/components/mui';
 import SolicitudesExamenService from '@/services/solicitud-examen.service';
 
 type Props = {
@@ -129,6 +129,23 @@ export default function FormStart({ certificados, setBloqueo }: Props)
                         mensaje="Hacer click si usted es alumno de CIUNAC."
                         name="alumno_ciunac" />
                 </Grid>
+                {
+                    formik.values.trabajador && (
+                        <Grid size={{xs:12, md:6}}>
+                            <MySelect
+                                data={[{value:'DOCENTE',label:'DOCENTE Y FAMILIARES'},{value:'ADMINISTRATIVO',label:'ADMINISTRATIVO CAS/NOMBRADO'}]}
+                                error={formik.touched.tipo_trabajador && Boolean(formik.errors.tipo_trabajador)}
+                                name='tipo_trabajador'
+                                sx={{m:1,mr:1}}
+                                disabled={!formik.values.trabajador}
+                                label='Tipo de Trabajador'
+                                value={formik.values.tipo_trabajador as string}
+                                handleChange={formik.handleChange}
+                                helperText={formik.touched.tipo_trabajador && formik.errors.tipo_trabajador}
+                            />
+                        </Grid>
+                    )
+                }
                 <Grid size={{xs:12, md:6}} justifyContent="center" display={'flex'} alignItems={'center'}>
                     <ReCAPTCHA sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string} ref={captchaRef} />
                 </Grid>

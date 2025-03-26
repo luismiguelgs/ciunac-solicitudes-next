@@ -1,14 +1,14 @@
 import { create } from "zustand";
 
-export interface FormDataCertificate {
+export interface FormDataSolicitud {
     verifyData?: {
         dni: string;
         trabajador: boolean;
         antiguo: boolean;
         email: string;
         tipo_solicitud: string;
+        tipo_trabajador?: string;
         alumno_ciunac: boolean;
-        tipo_trabajador: string;
     }
     basicData?: {
         apellidos: string;
@@ -16,9 +16,12 @@ export interface FormDataCertificate {
         idioma: string;
         nivel: string;
         alumno: boolean;
+        telefono?: string;
         celular: string;
         facultad: string;
         codigo: string;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        img_dni?:any,
     };
     finData?: {
         pago: number;
@@ -33,17 +36,17 @@ export interface FormDataCertificate {
 }
 
 interface FormStore {
-  formData: FormDataCertificate;
+  formData: FormDataSolicitud;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  updateFormData: (step: keyof FormDataCertificate, values: any) => void;
+  updateFormData: (step: keyof FormDataSolicitud, values: any) => void;
 }
 
 const useFormStore = create<FormStore>((set) => ({
-	formData: {},
-	updateFormData: (step, values) =>
-		set((state) => ({
-		formData: { ...state.formData, [step]: values },
-		})),
+    formData: {},
+    updateFormData: (step, values) =>
+        set((state) => ({
+        formData: { ...state.formData, [step]: values },
+        })),
 }));
 
 export default useFormStore;

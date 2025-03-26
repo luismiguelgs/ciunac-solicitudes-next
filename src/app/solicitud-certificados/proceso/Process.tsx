@@ -1,9 +1,9 @@
 'use client'
-import useFormStore from '@/stores/rcertificate.store';
+import useFormStore from '@/stores/solicitud.store';
 import { Box, Step, StepLabel, Stepper } from '@mui/material'
 import React from 'react'
 import BasicData from './(components)/BasicData';
-import FinData from './(components)/FinData';
+import FinData from '@/components/FinData';
 import Final from './(components)/Final';
 import Documentos from './(components)/Documentos';
 import Before2010 from './(components)/Before2010';
@@ -12,7 +12,7 @@ import { Irow } from '@/interfaces/type.interface';
 export default function Process({params}:{params:{[key:string]:string | string[] | undefined}}) 
 {
     
-    const { trabajador, tipo_solicitud, antiguo, email, dni, pago} = params
+    const { trabajador, tipo_solicitud, antiguo, email, dni, pago, tipo_trabajador} = params
 
     const [activeStep, setActiveStep] = React.useState(0);
     const formData = useFormStore((state) => state.formData);
@@ -29,7 +29,8 @@ export default function Process({params}:{params:{[key:string]:string | string[]
             trabajador: worker, 
             antiguo: old, 
             email: email, 
-            dni: dni
+            dni: dni,
+            tipo_trabajador: tipo_trabajador,
         });
     }, [tipo_solicitud]);
 

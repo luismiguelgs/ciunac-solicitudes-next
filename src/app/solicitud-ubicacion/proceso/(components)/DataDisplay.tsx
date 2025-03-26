@@ -91,8 +91,17 @@ export default function DataDisplay({data}:Props)
 					Monto Pagado: <b>S/{data.pago}</b>
 				</Typography>
             </Grid>
-            <Grid size={{xs:12, md:6}}>
+            {
+				data.tipo_trabajador && (
+					<Grid size={{xs:12, md:6}}>
+						<Typography variant="subtitle2" gutterBottom style={{ textAlign: 'left',marginLeft:'10px' }}>
+							Tipo de Trabajador: <b>{data.tipo_trabajador}</b>
+						</Typography>
+					</Grid>
+				)
+			}
+			<Grid size={{xs:12, md:6}}>
             </Grid>
         </Grid>
-      ) 
+    ) 
 }

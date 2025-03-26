@@ -1,5 +1,5 @@
 'use client'
-import useFormStore from '@/stores/rcertificate.store';
+import useFormStore from '@/stores/solicitud.store';
 import { useFormik } from 'formik';
 import React from 'react';
 import { initialValues, validationSchema } from '../(schemas)/basic.schema';
@@ -92,7 +92,7 @@ export default function BasicData({onNext}:{onNext:() => void})
                             <MySelect 
                                 name="nivel"
                                 label="Nivel"
-                                sx={{m:0.5}}
+                                sx={{mt:1, ml:0.5}}
                                 value={formik.values.nivel}
                                 error={formik.touched.nivel && Boolean(formik.errors.nivel)}
                                 handleChange={formik.handleChange}
@@ -145,7 +145,7 @@ export default function BasicData({onNext}:{onNext:() => void})
                                 fullWidth
                                 error={formik.touched.codigo && Boolean(formik.errors.codigo)}
                                 name="codigo"
-                                sx={{m:0.5}}
+                                sx={{mt:1, ml:0.5}}
                                 onBlur={formik.handleBlur}
                                 label="Código de Alumno"
                                 value={formik.values.codigo}

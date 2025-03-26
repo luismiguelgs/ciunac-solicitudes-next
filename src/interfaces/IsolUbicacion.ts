@@ -17,6 +17,7 @@ export default interface IsolUbicacion{
     telefono: string,
     facultad?: string,
     email: string,
+    tipo_trabajador?:string,
     codigo?: string,
     trabajador: boolean,
     alumno_ciunac: boolean,

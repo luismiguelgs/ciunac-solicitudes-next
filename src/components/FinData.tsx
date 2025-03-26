@@ -1,9 +1,9 @@
 import useStore from '@/hooks/useStore';
-import useFormStore from '@/stores/rcertificate.store';
+import useFormStore from '@/stores/solicitud.store';
 import {  useTextsStore } from '@/stores/types.stores';
 import { useFormik } from 'formik';
 import React from 'react';
-import { initialValues, validationSchema } from '../(schemas)/fin.schema';
+import { initialValues, validationSchema } from './schemas/fin.schema';
 import Grid from '@mui/material/Grid2';
 import { Alert, Box, Button, TextField } from '@mui/material';
 import { MySelect } from '@/components/mui';
@@ -34,9 +34,13 @@ export default function FinData({onNext, onBack, trabajador, precio}:Props)
         initialValues,
         validationSchema,
         onSubmit: (values) => {
-            //alert(JSON.stringify(values, null, 2));
             if(values.img_voucher === uploadLogo.src){
-                setImageVal(true)
+                if(values.pago !== '0'){
+                    setImageVal(true)
+                }else{
+                    updateFormData("finData", values);
+                    onNext();
+                }
             }else{
                 updateFormData("finData", values);
                 onNext();
