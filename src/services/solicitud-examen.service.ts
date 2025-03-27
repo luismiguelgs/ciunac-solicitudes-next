@@ -124,6 +124,7 @@ export default class SolicitudesExamenService
                 dni:data.dni,
                 pago:+data.pago,
                 idioma:data.idioma,
+                tipo_trabajador: data.tipo_trabajador,
                 nivel:data.nivel,
                 img_dni: data.img_dni,
                 img_cert_trabajo: data.trabajador ? data.img_cert_trabajo : '',
