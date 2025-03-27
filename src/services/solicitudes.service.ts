@@ -87,6 +87,7 @@ export default class SolicitudesService
             nombres:data.nombres,
             apellidos:data.apellidos,
             celular:data.celular,
+            tipo_trabajador:data.tipo_trabajador,
             idioma:data.idioma,
             nivel:data.nivel,
             facultad:data.facultad,
